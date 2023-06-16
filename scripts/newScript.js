@@ -26,12 +26,27 @@ pagesBox.addEventListener("click", (e) => {
     savePages(allPagesArray);
     todoID++;
   }
+
+  // Select active element which is title, when it's unfocused save pages data to local storage
+  document.activeElement.addEventListener("blur", (e) => {
+    if (target.classList.contains("todo-page__title")) {
+      const allPagesArray = createPagesArray(
+        document.querySelectorAll(".todo-page")
+      );
+      savePages(allPagesArray);
+    }
+  });
+
+  if (target.closest("button") && target.classList.contains("delete-icon")) {
+    console.log("Delete todo");
+  }
 });
 
 // Adds new page, activePage becomes new created page
 newPageButton.addEventListener("click", () => {
   pageID++;
   pagesCount++;
+  todoID = 0;
   activePage = pagesCount;
   createPageHTML(null, pagesBox, pageID);
   showActivePage(pagesBox, activePage);
@@ -39,30 +54,25 @@ newPageButton.addEventListener("click", () => {
 
 // Next page, if last page --> to the first page
 nextButton.addEventListener("click", () => {
-  console.log("NEXT PAGE");
   activePage++;
   if (activePage > pagesCount) {
     activePage = 1;
   }
   showActivePage(pagesBox, activePage);
-  getPageTodoId(activePage);
-  console.log(pagesCount);
+  todoID = getPageTodoId(activePage);
 });
 // Previous page, if first page --> to the last page
 prevButton.addEventListener("click", () => {
-  console.log("PREV PAGE");
   activePage--;
   if (activePage === 0) {
     activePage = pagesCount;
   }
   showActivePage(pagesBox, activePage);
-  getPageTodoId(activePage);
-  console.log(pagesCount);
+  todoID = getPageTodoId(activePage);
 });
 
 // Delete page, deletes page, resets id's of pages and saves changes to local
 deleteButton.addEventListener("click", () => {
-  console.log(`${activePage} PAGE DELETED`);
   deletePage(activePage);
   activePage--;
   showActivePage(pagesBox, activePage);
@@ -73,6 +83,7 @@ deleteButton.addEventListener("click", () => {
   const allPagesArray = createPagesArray(allPages);
   savePages(allPagesArray);
 });
+
 // Functions for todos
 const addTodos = (value, id, todosBox) => {
   if (todosBox.children.length === 0) {
@@ -82,10 +93,27 @@ const addTodos = (value, id, todosBox) => {
   }
 };
 // --------------------------------------
+
+const deleteTodo = (activePage, todoId) => {
+  // const todoToDelete = document.querySelector(
+  //   `[data-todos="${activePage}"] > [data-id="${todoId}"]`
+  // )
+  document
+    .querySelector(`[data-todos="${activePage}"] > [data-id="${todoId}"]`)
+    .remove();
+};
+
+// --------------------------------------
+const getPageTodoId = (activePage) => {
+  const activePageTodosBox = document.querySelector(
+    `[data-todos="${activePage}"]`
+  );
+  return activePageTodosBox.childNodes.length;
+};
+// --------------------------------------
 const extractTodos = (todosElement) => {
   const extractedTodosArray = [];
   todosElement.childNodes.forEach((childNode) => {
-    // Select span (which has text) of p element
     const spanOfChild = childNode.querySelector("span");
     const todoValue = spanOfChild.textContent;
     const todoId = childNode.dataset.id;
@@ -102,7 +130,7 @@ const createNewTodoObject = (text, id) => {
     text: text,
   };
 };
-
+// ---------------------------------------
 const createNewElement = (text, id) => {
   const newElement = document.createElement("p");
   const newTextElement = document.createElement("span");
@@ -159,12 +187,6 @@ const showActivePage = (pagesBox, activePage) => {
   });
 };
 // --------------------------------------
-const getPageTodoId = (activePage) => {
-  const activePageTodosBox = document.querySelector(
-    `[data-todos="${activePage}"]`
-  );
-  return activePageTodosBox.childNodes.length;
-};
 // --------------------------------------
 // Deletes activePage
 const deletePage = (activePage) => {
@@ -231,7 +253,6 @@ const createPageHTML = (pagesArray, pagesBox, pageId = 1) => {
     </div>
       `;
       pagesBox.insertAdjacentHTML("beforeend", newPage);
-      console.log(pagesCount);
       page.todos.forEach(({ text, id }) => {
         const newElement = createNewElement(text, id);
         const todoBox = document.querySelector(`[data-todos="${page.pageId}"]`);
