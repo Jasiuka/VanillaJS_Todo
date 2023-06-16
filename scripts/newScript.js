@@ -1,15 +1,18 @@
+// GLOBALS
 const pagesBox = document.querySelector(".pages");
 const newPageButton = document.querySelector(".pages__new-page-btn");
 const nextButton = document.querySelector(".pages__next-btn");
 const prevButton = document.querySelector(".pages__prev-btn");
+const deleteButton = document.querySelector(".pages__delete-btn");
 let todoID = 0;
 let pageID = 1;
 let activePage = 1;
+let pagesCount = 1;
 
+// Events
 pagesBox.addEventListener("click", (e) => {
   const target = e.target;
   if (target.closest("button") && target.classList.contains("todo-page__btn")) {
-    // const id = target.parentNode.dataset.todopage;
     const pageInput = document.querySelector(`[data-inputid="${activePage}"]`);
     const todoBox = document.querySelector(`[data-todos="${activePage}"]`);
     const value = pageInput.value;
@@ -25,24 +28,52 @@ pagesBox.addEventListener("click", (e) => {
   }
 });
 
+// Adds new page, activePage becomes new created page
 newPageButton.addEventListener("click", () => {
-  console.log("New page added");
   pageID++;
-  activePage++;
+  pagesCount++;
+  activePage = pagesCount;
   createPageHTML(null, pagesBox, pageID);
+  showActivePage(pagesBox, activePage);
 });
 
+// Next page, if last page --> to the first page
 nextButton.addEventListener("click", () => {
   console.log("NEXT PAGE");
   activePage++;
+  if (activePage > pagesCount) {
+    activePage = 1;
+  }
   showActivePage(pagesBox, activePage);
+  getPageTodoId(activePage);
+  console.log(pagesCount);
 });
+// Previous page, if first page --> to the last page
 prevButton.addEventListener("click", () => {
   console.log("PREV PAGE");
   activePage--;
+  if (activePage === 0) {
+    activePage = pagesCount;
+  }
   showActivePage(pagesBox, activePage);
+  getPageTodoId(activePage);
+  console.log(pagesCount);
 });
 
+// Delete page, deletes page, resets id's of pages and saves changes to local
+deleteButton.addEventListener("click", () => {
+  console.log(`${activePage} PAGE DELETED`);
+  deletePage(activePage);
+  activePage--;
+  showActivePage(pagesBox, activePage);
+  pagesCount--;
+  pageID--;
+  const allPages = document.querySelectorAll(".todo-page");
+  resetPageIds(allPages);
+  const allPagesArray = createPagesArray(allPages);
+  savePages(allPagesArray);
+});
+// Functions for todos
 const addTodos = (value, id, todosBox) => {
   if (todosBox.children.length === 0) {
     todosBox.appendChild(createNewElement(value, id));
@@ -50,31 +81,8 @@ const addTodos = (value, id, todosBox) => {
     todosBox.insertBefore(createNewElement(value, id), todosBox.firstChild);
   }
 };
-
-const createPagesArray = (allPages) => {
-  const pageObjectsArray = [];
-  allPages.forEach((page) => {
-    console.log(page);
-    const pageTitle = page.querySelector("h2:first-child").textContent;
-    const todos = page.querySelector("div:last-child");
-    const extractedTodos = extractTodos(todos);
-    const newPageObject = {
-      pageId: page.dataset.todopage,
-      title: pageTitle,
-      todos: extractedTodos,
-    };
-    pageObjectsArray.push(newPageObject);
-  });
-  return pageObjectsArray;
-};
-
-const savePages = (pagesArray) => {
-  localStorage.removeItem("pages");
-  localStorage.setItem("pages", JSON.stringify(pagesArray));
-};
-
+// --------------------------------------
 const extractTodos = (todosElement) => {
-  console.log(todosElement);
   const extractedTodosArray = [];
   todosElement.childNodes.forEach((childNode) => {
     // Select span (which has text) of p element
@@ -87,7 +95,7 @@ const extractTodos = (todosElement) => {
 
   return extractedTodosArray;
 };
-
+// --------------------------------------
 const createNewTodoObject = (text, id) => {
   return {
     id: id,
@@ -117,22 +125,60 @@ const createNewElement = (text, id) => {
   newElement.insertAdjacentHTML("beforeend", buttonIconsHtml);
   return newElement;
 };
-
+// --------------------------------------
+// Functions for pages
+const createPagesArray = (allPages) => {
+  const pageObjectsArray = [];
+  allPages.forEach((page) => {
+    const pageTitle = page.querySelector("h2:first-child").textContent;
+    const todos = page.querySelector("div:last-child");
+    const extractedTodos = extractTodos(todos);
+    const newPageObject = {
+      pageId: page.dataset.todopage,
+      title: pageTitle,
+      todos: extractedTodos,
+    };
+    pageObjectsArray.push(newPageObject);
+  });
+  return pageObjectsArray;
+};
+// --------------------------------------
+const savePages = (pagesArray) => {
+  localStorage.removeItem("pages");
+  localStorage.setItem("pages", JSON.stringify(pagesArray));
+};
+// --------------------------------------
 const showActivePage = (pagesBox, activePage) => {
   const pages = pagesBox.querySelectorAll(".todo-page");
   pages.forEach((page) => {
-    console.log("Active:", activePage);
-
-    console.log("Dataset: ", page.dataset.todopage);
     if (page.dataset.todopage === activePage.toString()) {
       page.classList.remove("hide");
-      console.log("working");
     } else {
       page.classList.add("hide");
     }
   });
 };
+// --------------------------------------
+const getPageTodoId = (activePage) => {
+  const activePageTodosBox = document.querySelector(
+    `[data-todos="${activePage}"]`
+  );
+  return activePageTodosBox.childNodes.length;
+};
+// --------------------------------------
+// Deletes activePage
+const deletePage = (activePage) => {
+  document.querySelector(`[data-todopage="${activePage}"]`).remove();
+};
 
+const resetPageIds = (pages) => {
+  let i = 1;
+  pages.forEach((page) => {
+    page.dataset.todopage = i;
+    i++;
+  });
+};
+// Start of the app
 const start = (pagesBox) => {
   if (localStorage.getItem("pages")) {
     const pagesArray = JSON.parse(localStorage.getItem("pages"));
@@ -146,7 +192,7 @@ const start = (pagesBox) => {
     showActivePage(pagesBox, activePage);
   }
 };
-
+// --------------------------------------
 const createPageHTML = (pagesArray, pagesBox, pageId = 1) => {
   if (pagesArray === null) {
     const newPage = `
@@ -167,9 +213,8 @@ const createPageHTML = (pagesArray, pagesBox, pageId = 1) => {
 
     pagesBox.insertAdjacentHTML("beforeend", newPage);
   } else {
-    console.log("Pages array: ", pagesArray);
+    pagesCount = pagesArray.length;
     pagesArray.forEach((page) => {
-      console.log("One page:", page);
       const newPage = `
       <div class="todo-page" data-todoPage="${page.pageId}">
       <h2 class="todo-page__title" contenteditable="true" data-pageid="${page.pageId}">
@@ -186,7 +231,7 @@ const createPageHTML = (pagesArray, pagesBox, pageId = 1) => {
     </div>
       `;
       pagesBox.insertAdjacentHTML("beforeend", newPage);
-
+      console.log(pagesCount);
       page.todos.forEach(({ text, id }) => {
         const newElement = createNewElement(text, id);
         const todoBox = document.querySelector(`[data-todos="${page.pageId}"]`);
@@ -195,5 +240,5 @@ const createPageHTML = (pagesArray, pagesBox, pageId = 1) => {
     });
   }
 };
-
+// --------------------------------------
 start(pagesBox);
