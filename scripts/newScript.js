@@ -1,15 +1,14 @@
 const pagesBox = document.querySelector(".pages");
 const newPageButton = document.querySelector(".pages__new-page-btn");
+const nextButton = document.querySelector(".pages__next-btn");
+const prevButton = document.querySelector(".pages__prev-btn");
 let todoID = 0;
 let pageID = 1;
 let activePage = 1;
 
 pagesBox.addEventListener("click", (e) => {
   const target = e.target;
-  if (
-    target.closest("button") &&
-    !target.classList.contains("pages__new-page-btn")
-  ) {
+  if (target.closest("button") && target.classList.contains("todo-page__btn")) {
     // const id = target.parentNode.dataset.todopage;
     const pageInput = document.querySelector(`[data-inputid="${activePage}"]`);
     const todoBox = document.querySelector(`[data-todos="${activePage}"]`);
@@ -31,6 +30,17 @@ newPageButton.addEventListener("click", () => {
   pageID++;
   activePage++;
   createPageHTML(null, pagesBox, pageID);
+});
+
+nextButton.addEventListener("click", () => {
+  console.log("NEXT PAGE");
+  activePage++;
+  showActivePage(pagesBox, activePage);
+});
+prevButton.addEventListener("click", () => {
+  console.log("PREV PAGE");
+  activePage--;
+  showActivePage(pagesBox, activePage);
 });
 
 const addTodos = (value, id, todosBox) => {
@@ -108,18 +118,32 @@ const createNewElement = (text, id) => {
   return newElement;
 };
 
+const showActivePage = (pagesBox, activePage) => {
+  const pages = pagesBox.querySelectorAll(".todo-page");
+  pages.forEach((page) => {
+    console.log("Active:", activePage);
+
+    console.log("Dataset: ", page.dataset.todopage);
+    if (page.dataset.todopage === activePage.toString()) {
+      page.classList.remove("hide");
+      console.log("working");
+    } else {
+      page.classList.add("hide");
+    }
+  });
+};
+
 const start = (pagesBox) => {
-  if (localStorage.length !== 0) {
+  if (localStorage.getItem("pages")) {
     const pagesArray = JSON.parse(localStorage.getItem("pages"));
     createPageHTML(pagesArray, pagesBox);
     pageID = pagesArray.length;
     todoID = pagesArray[0].todos.length;
-    // activePage = 1;
+    showActivePage(pagesBox, activePage);
   } else {
     createPageHTML(null, pagesBox);
     todoID = 0;
-    // pageID = 1;
-    // activePage = 1;
+    showActivePage(pagesBox, activePage);
   }
 };
 
