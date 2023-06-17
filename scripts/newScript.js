@@ -21,14 +21,14 @@ pagesBox.addEventListener("click", (e) => {
     addTodos(value, todoID, todoBox);
 
     // get all pages data and save it
-    const allPages = document.querySelectorAll(".todo-page");
-    const allPagesArray = createPagesArray(allPages);
-    savePages(allPagesArray);
+    // const allPages = document.querySelectorAll(".todo-page");
+    // const allPagesArray = createPagesArray(allPages);
+    savePages(makeDataForSaving());
     todoID++;
   }
 
   // Select active element which is title, when it's unfocused save pages data to local storage
-  document.activeElement.addEventListener("blur", (e) => {
+  document.activeElement.addEventListener("blur", () => {
     if (target.classList.contains("todo-page__title")) {
       const allPagesArray = createPagesArray(
         document.querySelectorAll(".todo-page")
@@ -37,8 +37,17 @@ pagesBox.addEventListener("click", (e) => {
     }
   });
 
-  if (target.closest("button") && target.classList.contains("delete-icon")) {
-    console.log("Delete todo");
+  // Delete todo functionality
+  if (target.closest(".delete-icon")) {
+    // Delete
+    deleteTodo(activePage, target.closest("p").dataset.id);
+    // Reset ids
+    const activeTodoBox = pagesBox.querySelector(
+      `[data-todos="${activePage}"]`
+    );
+    resetTodoIds(activeTodoBox);
+    // Save changes
+    savePages(makeDataForSaving());
   }
 });
 
@@ -74,14 +83,21 @@ prevButton.addEventListener("click", () => {
 // Delete page, deletes page, resets id's of pages and saves changes to local
 deleteButton.addEventListener("click", () => {
   deletePage(activePage);
-  activePage--;
-  showActivePage(pagesBox, activePage);
+  if (activePage === 1) {
+    activePage = 1;
+  } else {
+    activePage--;
+  }
   pagesCount--;
   pageID--;
   const allPages = document.querySelectorAll(".todo-page");
   resetPageIds(allPages);
-  const allPagesArray = createPagesArray(allPages);
-  savePages(allPagesArray);
+  showActivePage(pagesBox, activePage);
+  console.log("pages count:", pagesCount);
+  console.log("page id:", pageID);
+  console.log("active page: ", activePage);
+  // const allPagesArray = createPagesArray(allPages);
+  savePages(makeDataForSaving());
 });
 
 // Functions for todos
@@ -95,9 +111,6 @@ const addTodos = (value, id, todosBox) => {
 // --------------------------------------
 
 const deleteTodo = (activePage, todoId) => {
-  // const todoToDelete = document.querySelector(
-  //   `[data-todos="${activePage}"] > [data-id="${todoId}"]`
-  // )
   document
     .querySelector(`[data-todos="${activePage}"] > [data-id="${todoId}"]`)
     .remove();
@@ -105,6 +118,11 @@ const deleteTodo = (activePage, todoId) => {
 
 // --------------------------------------
 const getPageTodoId = (activePage) => {
+  console.log(
+    "TodoBox",
+    document.querySelector(`[data-todos="${activePage}"]`)
+  );
+  console.log("GET ID-- active page: ", activePage);
   const activePageTodosBox = document.querySelector(
     `[data-todos="${activePage}"]`
   );
@@ -122,6 +140,14 @@ const extractTodos = (todosElement) => {
   });
 
   return extractedTodosArray;
+};
+// --------------------------------------
+const resetTodoIds = (todoBox) => {
+  let i = todoBox.childNodes.length - 1;
+  todoBox.childNodes.forEach((todo) => {
+    todo.dataset.id = i;
+    i--;
+  });
 };
 // --------------------------------------
 const createNewTodoObject = (text, id) => {
@@ -197,6 +223,9 @@ const resetPageIds = (pages) => {
   let i = 1;
   pages.forEach((page) => {
     page.dataset.todopage = i;
+    page.querySelector("h2").dataset.pageid = i;
+    page.querySelector("input").dataset.inputid = i;
+    page.querySelector(".todo-page__todos").dataset.todos = i;
     i++;
   });
 };
@@ -263,3 +292,10 @@ const createPageHTML = (pagesArray, pagesBox, pageId = 1) => {
 };
 // --------------------------------------
 start(pagesBox);
+
+// Saving function
+const makeDataForSaving = () => {
+  const allPages = document.querySelectorAll(".todo-page");
+  const allPagesArray = createPagesArray(allPages);
+  return allPagesArray;
+};
