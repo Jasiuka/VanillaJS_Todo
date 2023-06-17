@@ -8,76 +8,117 @@ let todoID = 0;
 let pageID = 1;
 let activePage = 1;
 let pagesCount = 1;
+let todoInEdit = false;
 
 // Events
 pagesBox.addEventListener("click", (e) => {
   const target = e.target;
   if (target.closest("button") && target.classList.contains("todo-page__btn")) {
-    const pageInput = document.querySelector(`[data-inputid="${activePage}"]`);
-    const todoBox = document.querySelector(`[data-todos="${activePage}"]`);
-    const value = pageInput.value;
+    if (!todoInEdit) {
+      const pageInput = document.querySelector(
+        `[data-inputid="${activePage}"]`
+      );
+      const todoBox = document.querySelector(`[data-todos="${activePage}"]`);
+      const value = pageInput.value;
 
-    // Add todo element to todos box
-    addTodos(value, todoID, todoBox);
-
-    // get all pages data and save it
-    // const allPages = document.querySelectorAll(".todo-page");
-    // const allPagesArray = createPagesArray(allPages);
-    savePages(makeDataForSaving());
-    todoID++;
+      // Add todo element to todos box
+      addTodos(value, todoID, todoBox);
+      savePages(makeDataForSaving());
+      todoID++;
+    } else {
+      alert("Finish editing your todo!");
+    }
   }
 
   // Select active element which is title, when it's unfocused save pages data to local storage
   document.activeElement.addEventListener("blur", () => {
     if (target.classList.contains("todo-page__title")) {
-      const allPagesArray = createPagesArray(
-        document.querySelectorAll(".todo-page")
-      );
-      savePages(allPagesArray);
+      if (!todoInEdit) {
+        const allPagesArray = createPagesArray(
+          document.querySelectorAll(".todo-page")
+        );
+        savePages(allPagesArray);
+      } else {
+        alert("Finish editing your todo!");
+      }
     }
   });
 
   // Delete todo functionality
   if (target.closest(".delete-icon")) {
-    // Delete
-    deleteTodo(activePage, target.closest("p").dataset.id);
-    // Reset ids
-    const activeTodoBox = pagesBox.querySelector(
-      `[data-todos="${activePage}"]`
-    );
-    resetTodoIds(activeTodoBox);
-    // Save changes
+    if (!todoInEdit) {
+      // Delete
+      deleteTodo(activePage, target.closest("p").dataset.id);
+      // Reset ids
+      const activeTodoBox = pagesBox.querySelector(
+        `[data-todos="${activePage}"]`
+      );
+      resetTodoIds(activeTodoBox);
+      // Save changes
+      savePages(makeDataForSaving());
+    } else {
+      alert("Finish editing your todo!");
+    }
+  }
+
+  // Edit todo functionality
+  if (target.closest(".edit-icon")) {
+    if (!todoInEdit) {
+      const todo = target.closest("p");
+      handleTodoEditStart(todo);
+      todoInEdit = true;
+    } else {
+      alert("One todo is already in edit! 4");
+    }
+  }
+
+  if (target.closest(".submit-edit-icon")) {
+    const todo = target.closest("p");
+    handleTodoEditEnd(todo);
+    todoInEdit = false;
     savePages(makeDataForSaving());
   }
 });
 
 // Adds new page, activePage becomes new created page
 newPageButton.addEventListener("click", () => {
-  pageID++;
-  pagesCount++;
-  todoID = 0;
-  activePage = pagesCount;
-  createPageHTML(null, pagesBox, pageID);
-  showActivePage(pagesBox, activePage);
+  if (!todoInEdit) {
+    pageID++;
+    pagesCount++;
+    todoID = 0;
+    activePage = pagesCount;
+    createPageHTML(null, pagesBox, pageID);
+    showActivePage(pagesBox, activePage);
+  } else {
+    alert("Finish editing your todo!");
+  }
 });
 
 // Next page, if last page --> to the first page
 nextButton.addEventListener("click", () => {
-  activePage++;
-  if (activePage > pagesCount) {
-    activePage = 1;
+  if (!todoInEdit) {
+    activePage++;
+    if (activePage > pagesCount) {
+      activePage = 1;
+    }
+    showActivePage(pagesBox, activePage);
+    todoID = getPageTodoId(activePage);
+  } else {
+    alert("Finish editing your todo!");
   }
-  showActivePage(pagesBox, activePage);
-  todoID = getPageTodoId(activePage);
 });
 // Previous page, if first page --> to the last page
 prevButton.addEventListener("click", () => {
-  activePage--;
-  if (activePage === 0) {
-    activePage = pagesCount;
+  if (!todoInEdit) {
+    activePage--;
+    if (activePage === 0) {
+      activePage = pagesCount;
+    }
+    showActivePage(pagesBox, activePage);
+    todoID = getPageTodoId(activePage);
+  } else {
+    alert("Finish editing your todo!");
   }
-  showActivePage(pagesBox, activePage);
-  todoID = getPageTodoId(activePage);
 });
 
 // Delete page, deletes page, resets id's of pages and saves changes to local
@@ -93,10 +134,7 @@ deleteButton.addEventListener("click", () => {
   const allPages = document.querySelectorAll(".todo-page");
   resetPageIds(allPages);
   showActivePage(pagesBox, activePage);
-  console.log("pages count:", pagesCount);
-  console.log("page id:", pageID);
-  console.log("active page: ", activePage);
-  // const allPagesArray = createPagesArray(allPages);
+  todoInEdit = false;
   savePages(makeDataForSaving());
 });
 
@@ -118,17 +156,44 @@ const deleteTodo = (activePage, todoId) => {
 
 // --------------------------------------
 const getPageTodoId = (activePage) => {
-  console.log(
-    "TodoBox",
-    document.querySelector(`[data-todos="${activePage}"]`)
-  );
-  console.log("GET ID-- active page: ", activePage);
   const activePageTodosBox = document.querySelector(
     `[data-todos="${activePage}"]`
   );
   return activePageTodosBox.childNodes.length;
 };
 // --------------------------------------
+const handleTodoEditStart = (todoElement) => {
+  const todoText = todoElement.querySelector("span");
+  const editButton = todoElement.querySelector(".edit-icon");
+  const submitChangeIconHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+    </svg>
+    `;
+
+  const newEditElement = document.createElement("input");
+  newEditElement.value = todoText.textContent;
+  editButton.classList.add("submit-edit-icon");
+  editButton.classList.remove("edit-icon");
+  todoText.replaceWith(newEditElement);
+  editButton.innerHTML = submitChangeIconHTML;
+};
+// --------------------------------------
+const handleTodoEditEnd = (todoElement) => {
+  const todoInput = todoElement.querySelector("input");
+  const submitEditButton = todoElement.querySelector(".submit-edit-icon");
+
+  const newSpanElement = document.createElement("span");
+  newSpanElement.textContent = todoInput.value;
+  const editButtonHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
+  </svg>`;
+  submitEditButton.classList.remove("submit-edit-icon");
+  submitEditButton.classList.add("edit-icon");
+  submitEditButton.innerHTML = editButtonHTML;
+  todoInput.replaceWith(newSpanElement);
+};
+// --------------------------------------
+
 const extractTodos = (todosElement) => {
   const extractedTodosArray = [];
   todosElement.childNodes.forEach((childNode) => {
