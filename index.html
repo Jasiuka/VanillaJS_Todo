@@ -3,17 +3,32 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>notyy</title>
-    <link href="/styles/style.css" rel="stylesheet" />
+    <title>Todoing - todo list</title>
+    <link href="/css/style.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <h1>notyy - todos app</h1>
-    <main class="pages">
-      <button class="pages__new-page-btn">Add new page</button>
-      <button class="pages__next-btn">NEXT</button>
-      <button class="pages__prev-btn">PREV</button>
-      <button class="pages__delete-btn">DELETE</button>
-    </main>
+    <div class="app">
+      <h1>Todoing - todo list</h1>
+      <main class="pages">
+        <!-- Actions -->
+        <div class="pages__actions-box">
+          <div class="pages__add-todo-box">
+            <input class="pages__add-todo-input" type="text" />
+            <button class="pages__add-todo-button">Add todo</button>
+          </div>
+          <button class="pages__new-page-btn">Add new page</button>
+          <button class="pages__next-btn">NEXT</button>
+          <button class="pages__prev-btn">PREV</button>
+          <button class="pages__delete-btn">DELETE</button>
+        </div>
+      </main>
+    </div>
     <script src="scripts/newScript.js"></script>
   </body>
 </html>

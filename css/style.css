@@ -1,56 +1,26 @@
-// Colors
-// 1 set:
-// #702632
-// #912F40
-// #FFFFFA
-// #40434E
-// #080705
-// 2 set:
-// #0A0908
-// #49111C
-// #F2F4F3
-// #A9927D
-// #5E503F
-// 3 set:
-// #5B2333
-// #F7F4F3
-// #564D4A
-// #F24333
-// #BA1B1D
-// 4 set:
-// #363636
-// #242F40
-// #CCA43B
-// #E5E5E5
-// #FFFFFF
-
 *,
 *::before,
 *::after {
   margin: 0;
   padding: 0;
-  box-sizing: inherit;
-}
+  box-sizing: inherit; }
 
 html {
   box-sizing: border-box;
-  font-size: 62.5%;
-}
+  font-size: 62.5%; }
 
 body {
   font-weight: 300;
   line-height: 1.6;
   font-family: "Ubuntu", "Sans-serif";
-  background-color: #702632;
-}
+  background-color: #702632; }
 
 .app h1 {
   background-color: #702632;
   color: #f1f3f5;
   text-align: center;
   padding: 1rem 0;
-  font-size: 3rem;
-}
+  font-size: 3rem; }
 
 .pages {
   padding: 2rem;
@@ -58,21 +28,17 @@ body {
   margin: 0 auto;
   display: flex;
   flex-direction: column-reverse;
-  width: 70vw;
-}
+  width: 70vw; }
 
 .todo-page__title {
   font-size: 5rem;
   text-align: center;
   padding-bottom: 1rem;
-  border-bottom: solid 5px #702632;
-}
+  border-bottom: solid 5px #702632; }
 
 .hide {
   display: none;
-  opacity: 0;
-}
+  opacity: 0; }
 
 .icon {
-  width: 1rem;
-}
+  width: 1rem; }

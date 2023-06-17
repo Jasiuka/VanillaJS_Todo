@@ -1,5 +1,6 @@
 // GLOBALS
 const pagesBox = document.querySelector(".pages");
+const input = document.querySelector(".pages__add-todo-input");
 const newPageButton = document.querySelector(".pages__new-page-btn");
 const nextButton = document.querySelector(".pages__next-btn");
 const prevButton = document.querySelector(".pages__prev-btn");
@@ -13,18 +14,19 @@ let todoInEdit = false;
 // Events
 pagesBox.addEventListener("click", (e) => {
   const target = e.target;
-  if (target.closest("button") && target.classList.contains("todo-page__btn")) {
+  if (
+    target.closest("button") &&
+    target.classList.contains("pages__add-todo-button")
+  ) {
     if (!todoInEdit) {
-      const pageInput = document.querySelector(
-        `[data-inputid="${activePage}"]`
-      );
       const todoBox = document.querySelector(`[data-todos="${activePage}"]`);
-      const value = pageInput.value;
+      const value = input.value;
 
       // Add todo element to todos box
       addTodos(value, todoID, todoBox);
       savePages(makeDataForSaving());
       todoID++;
+      input.value = "";
     } else {
       alert("Finish editing your todo!");
     }
@@ -103,6 +105,7 @@ nextButton.addEventListener("click", () => {
     }
     showActivePage(pagesBox, activePage);
     todoID = getPageTodoId(activePage);
+    console.log("working");
   } else {
     alert("Finish editing your todo!");
   }
@@ -316,13 +319,6 @@ const createPageHTML = (pagesArray, pagesBox, pageId = 1) => {
       <h2 class="todo-page__title" contenteditable="true" data-pageid="${pageId}">
         Todo page ${pageId}
       </h2>
-      <input  
-        class="todo-page__input"
-        type="text"
-        placeholder="write your todo"
-        data-inputid="${pageId}"
-      />
-      <button class="todo-page__btn">add text</button>
       <div class="todo-page__todos" data-todos="${pageId}"></div>
     </div>
       `;
@@ -336,13 +332,6 @@ const createPageHTML = (pagesArray, pagesBox, pageId = 1) => {
       <h2 class="todo-page__title" contenteditable="true" data-pageid="${page.pageId}">
         ${page.title}
       </h2>
-      <input
-        class="todo-page__input"
-        type="text"
-        placeholder="write your todo"
-        data-inputid="${page.pageId}"
-      />
-      <button class="todo-page__btn">add text</button>
       <div class="todo-page__todos" data-todos="${page.pageId}"></div>
     </div>
       `;
