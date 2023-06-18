@@ -23,18 +23,72 @@ body {
   font-size: 3rem; }
 
 .pages {
+  position: relative;
   padding: 2rem;
+  border-radius: 4px;
   background-color: #f1f3f5;
   margin: 0 auto;
   display: flex;
   flex-direction: column-reverse;
+  justify-content: center;
+  align-items: center;
   width: 70vw; }
+  .pages__actions-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    width: 85%; }
+  .pages__add-todo-box {
+    grid-column: 2 / 6;
+    display: flex;
+    align-self: center;
+    justify-self: center; }
+  .pages__add-todo-input {
+    font-size: 2.4rem;
+    padding: 1rem; }
+  .pages__next-btn {
+    grid-column: 6/7;
+    grid-row: 1 / 2; }
+  .pages__prev-btn {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2; }
+  .pages__delete-btn {
+    position: absolute;
+    top: 10%;
+    right: 15%; }
+  .pages__new-page-btn {
+    position: absolute;
+    top: 10%;
+    right: 10%; }
+  .pages button {
+    display: flex;
+    align-items: center; }
+
+.todo-page {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem; }
+  .todo-page__todos {
+    align-self: center;
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem; }
+    .todo-page__todos p {
+      font-size: 1.8rem;
+      font-weight: 400;
+      display: flex;
+      gap: 0.5rem; }
+      .todo-page__todos p .edit-icon {
+        margin-left: 1.5rem; }
 
 .todo-page__title {
   font-size: 5rem;
   text-align: center;
   padding-bottom: 1rem;
-  border-bottom: solid 5px #702632; }
+  border-bottom: solid 5px #702632;
+  flex: 1; }
 
 .hide {
   display: none;
