@@ -153,7 +153,7 @@ body {
   gap: 2rem; }
   .todo-page__todos {
     align-self: center;
-    height: 65vh;
+    max-height: 50vh;
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
