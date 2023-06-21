@@ -1,6 +1,11 @@
-import { deleteTodoAnimation, moveInputLabel } from "./animations.js";
+import {
+  completeTodoAnimation,
+  deleteTodoAnimation,
+  moveInputLabel,
+} from "./animations.js";
 // GLOBALS
 // const body = document.querySelector("body");
+const menuCheckbox = document.getElementById("menu-btn-hidden");
 const inputLabel = document.querySelector(".input-label");
 const pagesBox = document.querySelector(".pages");
 const input = document.querySelector(".pages__add-todo-input");
@@ -19,31 +24,47 @@ pagesBox.addEventListener("click", (e) => {
   const target = e.target;
   if (
     target.closest("button") &&
-    target.classList.contains("pages__add-todo-button")
+    target.classList.contains("pages__add-todo-button") &&
+    input.value.trim() !== ""
   ) {
     if (!todoInEdit) {
       const todoBox = document.querySelector(`[data-todos="${activePage}"]`);
       const value = input.value;
 
-      // Add todo element to todos box
-      addTodos(value, todoID, todoBox);
-      savePages(makeDataForSaving());
-      todoID++;
-      input.value = "";
-      moveInputLabel(inputLabel, false);
+      if (value.length <= 85) {
+        // Add todo element to todos box
+        addTodos(value, todoID, todoBox);
+        savePages(makeDataForSaving());
+        todoID++;
+        input.value = "";
+        moveInputLabel(inputLabel, false);
+      } else {
+        alert("Input value length should be <=85 characters. ");
+      }
     } else {
       alert("Finish editing your todo!");
     }
   }
 
   // Select active element which is title, when it's unfocused save pages data to local storage
-  document.activeElement.addEventListener("blur", () => {
+  document.activeElement.addEventListener("blur", (e) => {
+    // let alertShown = false;
     if (target.classList.contains("todo-page__title")) {
       if (!todoInEdit) {
-        const allPagesArray = createPagesArray(
-          document.querySelectorAll(".todo-page")
-        );
-        savePages(allPagesArray);
+        const newTitleValue = target.textContent.trim();
+        if (newTitleValue.length <= 50 && newTitleValue.length !== 0) {
+          const allPagesArray = createPagesArray(
+            document.querySelectorAll(".todo-page")
+          );
+          savePages(allPagesArray);
+        } else {
+          // if (!alertShown)
+          alert(
+            "Title name not saved. It should be more than 0 or less equal 50 characters length."
+          );
+          location.reload();
+          // alertShown = true;
+        }
       } else {
         alert("Finish editing your todo!");
       }
@@ -92,8 +113,12 @@ pagesBox.addEventListener("click", (e) => {
   if (target.closest(".completed-check")) {
     console.log("Completed");
     const todoItem = target.closest("p");
-    console.log(todoItem);
     checkCompletedTodo(todoItem);
+    setTimeout(function () {
+      saveCompletedTodo(todoItem);
+      todoItem.remove();
+      savePages(makeDataForSaving());
+    }, 500);
   }
 });
 
@@ -106,6 +131,7 @@ newPageButton.addEventListener("click", () => {
     activePage = pagesCount;
     createPageHTML(null, pagesBox, pageID);
     showActivePage(pagesBox, activePage);
+    menuCheckbox.checked = false;
   } else {
     alert("Finish editing your todo!");
   }
@@ -120,9 +146,10 @@ nextButton.addEventListener("click", () => {
     }
     showActivePage(pagesBox, activePage);
     todoID = getPageTodoId(activePage);
-    console.log("working");
+    menuCheckbox.checked = false;
   } else {
     alert("Finish editing your todo!");
+    menuCheckbox.checked = false;
   }
 });
 // Previous page, if first page --> to the last page
@@ -134,26 +161,34 @@ prevButton.addEventListener("click", () => {
     }
     showActivePage(pagesBox, activePage);
     todoID = getPageTodoId(activePage);
+    menuCheckbox.checked = false;
   } else {
     alert("Finish editing your todo!");
+    menuCheckbox.checked = false;
   }
 });
 
 // Delete page, deletes page, resets id's of pages and saves changes to local
 deleteButton.addEventListener("click", () => {
-  deletePage(activePage);
-  if (activePage === 1) {
-    activePage = 1;
+  if (pagesCount > 1) {
+    deletePage(activePage);
+    if (activePage === 1) {
+      activePage = 1;
+    } else {
+      activePage--;
+    }
+    pagesCount--;
+    pageID--;
+    const allPages = document.querySelectorAll(".todo-page");
+    resetPageIds(allPages);
+    showActivePage(pagesBox, activePage);
+    todoInEdit = false;
+    savePages(makeDataForSaving());
+    menuCheckbox.checked = false;
   } else {
-    activePage--;
+    alert("You can't delete last page!");
+    menuCheckbox.checked = false;
   }
-  pagesCount--;
-  pageID--;
-  const allPages = document.querySelectorAll(".todo-page");
-  resetPageIds(allPages);
-  showActivePage(pagesBox, activePage);
-  todoInEdit = false;
-  savePages(makeDataForSaving());
 });
 
 // Functions for todos
@@ -175,8 +210,42 @@ const deleteTodo = (activePage, todoId) => {
 // --------------------------------------
 
 const checkCompletedTodo = (todo) => {
-  todo.querySelector("span").classList.add("completed-todo");
-  todo.querySelector("div").classList.add("completed-todo-checkbox");
+  completeTodoAnimation(todo);
+};
+
+// --------------------------------------
+
+const saveCompletedTodo = (todo) => {
+  if (localStorage.getItem("completedTodos")) {
+    const completedTodosFromLocal = JSON.parse(
+      localStorage.getItem("completedTodos")
+    );
+    const newCompletedTodoId = completedTodosFromLocal.length + 1;
+    const newCompletedTodoObject = {
+      id: newCompletedTodoId,
+      text: todo.querySelector("span").textContent,
+    };
+    const newCompletedTodoObjectArray = [
+      ...completedTodosFromLocal,
+      newCompletedTodoObject,
+    ];
+    localStorage.setItem(
+      "completedTodos",
+      JSON.stringify(newCompletedTodoObjectArray)
+    );
+  } else {
+    const completedTodoToSave = todo.querySelector("span").textContent;
+    const completedTodoObjectArray = [
+      {
+        id: 1,
+        text: completedTodoToSave,
+      },
+    ];
+    localStorage.setItem(
+      "completedTodos",
+      JSON.stringify(completedTodoObjectArray)
+    );
+  }
 };
 
 // --------------------------------------
@@ -266,7 +335,7 @@ const createNewElement = (text, id) => {
     </button>
   
   `;
-  const todoCheckBoxHTML = `<div class="completed-check" data-checkid="${id}"></div>`;
+  const todoCheckBoxHTML = `<div class="completed-check" data-checkid="${id}" title="Check completed todo"></div>`;
   newElement.insertAdjacentHTML("beforeend", buttonIconsHtml);
   newElement.insertAdjacentHTML("afterbegin", todoCheckBoxHTML);
   return newElement;
@@ -316,7 +385,6 @@ const resetPageIds = (pages) => {
   pages.forEach((page) => {
     page.dataset.todopage = i;
     page.querySelector("h2").dataset.pageid = i;
-    page.querySelector("input").dataset.inputid = i;
     page.querySelector(".todo-page__todos").dataset.todos = i;
     i++;
   });
@@ -385,11 +453,3 @@ input.addEventListener("focus", () => {
 input.addEventListener("blur", () => {
   moveInputLabel(inputLabel, false, input.value);
 });
-
-// body.addEventListener("click", (e) => {
-//   const target = e.target;
-//   const checkbox = document.getElementById("menu-btn-hidden");
-//   if (target !== checkbox && target.nodeName !== "LABEL") {
-//     checkbox.checked = false;
-//   }
-// });

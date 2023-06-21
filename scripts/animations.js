@@ -16,3 +16,11 @@ export const deleteTodoAnimation = (todo) => {
   todo.style.transform = "translateX(30rem)";
   todo.style.opacity = 0;
 };
+
+export const completeTodoAnimation = (todo) => {
+  todo.style.backgroundColor = "green";
+  todo.querySelector("span").classList.add("completed-todo");
+  todo.querySelector("div").classList.add("completed-todo-checkbox");
+  todo.style.transform = "translateX(-10rem)";
+  todo.style.opacity = 0;
+};
