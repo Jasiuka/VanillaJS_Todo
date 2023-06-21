@@ -1,8 +1,8 @@
-import {
-  completeTodoAnimation,
-  deleteTodoAnimation,
-  moveInputLabel,
-} from "./animations.js";
+import * as animationFunction from "./animations.js";
+import * as todoFunction from "./todo-item.functions.js";
+import * as pageFunction from "./page.functions.js";
+import * as helperFunction from "./helper-and-saving.function.js";
+
 // GLOBALS
 // const body = document.querySelector("body");
 const menuCheckbox = document.getElementById("menu-btn-hidden");
@@ -33,11 +33,11 @@ pagesBox.addEventListener("click", (e) => {
 
       if (value.length <= 85) {
         // Add todo element to todos box
-        addTodos(value, todoID, todoBox);
-        savePages(makeDataForSaving());
+        todoFunction.addTodos(value, todoID, todoBox);
+        helperFunction.savePages(helperFunction.makeDataForSaving());
         todoID++;
         input.value = "";
-        moveInputLabel(inputLabel, false);
+        animationFunction.moveInputLabel(inputLabel, false);
       } else {
         alert("Input value length should be <=85 characters. ");
       }
@@ -53,10 +53,11 @@ pagesBox.addEventListener("click", (e) => {
       if (!todoInEdit) {
         const newTitleValue = target.textContent.trim();
         if (newTitleValue.length <= 50 && newTitleValue.length !== 0) {
-          const allPagesArray = createPagesArray(
-            document.querySelectorAll(".todo-page")
-          );
-          savePages(allPagesArray);
+          // const allPagesArray = createPagesArray(
+          //   document.querySelectorAll(".todo-page")
+          // );
+          // savePages(allPagesArray);
+          helperFunction.savePages(helperFunction.makeDataForSaving());
         } else {
           // if (!alertShown)
           alert(
@@ -75,16 +76,16 @@ pagesBox.addEventListener("click", (e) => {
   if (target.closest(".delete-icon")) {
     if (!todoInEdit) {
       // Delete
-      deleteTodoAnimation(target.closest("p"));
+      animationFunction.deleteTodoAnimation(target.closest("p"));
       setTimeout(function () {
-        deleteTodo(activePage, target.closest("p").dataset.id);
+        todoFunction.deleteTodo(activePage, target.closest("p").dataset.id);
         // Reset ids
         const activeTodoBox = pagesBox.querySelector(
           `[data-todos="${activePage}"]`
         );
-        resetTodoIds(activeTodoBox);
+        todoFunction.resetTodoIds(activeTodoBox);
         // Save changes
-        savePages(makeDataForSaving());
+        helperFunction.savePages(helperFunction.makeDataForSaving());
       }, 500);
     } else {
       alert("Finish editing your todo!");
@@ -95,29 +96,28 @@ pagesBox.addEventListener("click", (e) => {
   if (target.closest(".edit-icon")) {
     if (!todoInEdit) {
       const todo = target.closest("p");
-      handleTodoEditStart(todo);
+      todoFunction.handleTodoEditStart(todo);
       todoInEdit = true;
     } else {
-      alert("One todo is already in edit! 4");
+      alert("One todo is already in edit!");
     }
   }
 
   if (target.closest(".submit-edit-icon")) {
     const todo = target.closest("p");
-    handleTodoEditEnd(todo);
+    todoFunction.handleTodoEditEnd(todo);
     todoInEdit = false;
-    savePages(makeDataForSaving());
+    helperFunction.savePages(helperFunction.makeDataForSaving());
   }
 
   // Completed todo
   if (target.closest(".completed-check")) {
-    console.log("Completed");
     const todoItem = target.closest("p");
-    checkCompletedTodo(todoItem);
+    todoFunction.checkCompletedTodo(todoItem);
     setTimeout(function () {
-      saveCompletedTodo(todoItem);
+      todoFunction.saveCompletedTodo(todoItem);
       todoItem.remove();
-      savePages(makeDataForSaving());
+      helperFunction.savePages(helperFunction.makeDataForSaving());
     }, 500);
   }
 });
@@ -130,7 +130,7 @@ newPageButton.addEventListener("click", () => {
     todoID = 0;
     activePage = pagesCount;
     createPageHTML(null, pagesBox, pageID);
-    showActivePage(pagesBox, activePage);
+    pageFunction.showActivePage(pagesBox, activePage);
     menuCheckbox.checked = false;
   } else {
     alert("Finish editing your todo!");
@@ -144,8 +144,8 @@ nextButton.addEventListener("click", () => {
     if (activePage > pagesCount) {
       activePage = 1;
     }
-    showActivePage(pagesBox, activePage);
-    todoID = getPageTodoId(activePage);
+    pageFunction.showActivePage(pagesBox, activePage);
+    todoID = todoFunction.getPageTodoId(activePage);
     menuCheckbox.checked = false;
   } else {
     alert("Finish editing your todo!");
@@ -159,8 +159,8 @@ prevButton.addEventListener("click", () => {
     if (activePage === 0) {
       activePage = pagesCount;
     }
-    showActivePage(pagesBox, activePage);
-    todoID = getPageTodoId(activePage);
+    pageFunction.showActivePage(pagesBox, activePage);
+    todoID = todoFunction.getPageTodoId(activePage);
     menuCheckbox.checked = false;
   } else {
     alert("Finish editing your todo!");
@@ -171,7 +171,7 @@ prevButton.addEventListener("click", () => {
 // Delete page, deletes page, resets id's of pages and saves changes to local
 deleteButton.addEventListener("click", () => {
   if (pagesCount > 1) {
-    deletePage(activePage);
+    pageFunction.deletePage(activePage);
     if (activePage === 1) {
       activePage = 1;
     } else {
@@ -180,10 +180,10 @@ deleteButton.addEventListener("click", () => {
     pagesCount--;
     pageID--;
     const allPages = document.querySelectorAll(".todo-page");
-    resetPageIds(allPages);
-    showActivePage(pagesBox, activePage);
+    pageFunction.resetPageIds(allPages);
+    pageFunction.showActivePage(pagesBox, activePage);
     todoInEdit = false;
-    savePages(makeDataForSaving());
+    helperFunction.savePages(helperFunction.makeDataForSaving());
     menuCheckbox.checked = false;
   } else {
     alert("You can't delete last page!");
@@ -191,204 +191,6 @@ deleteButton.addEventListener("click", () => {
   }
 });
 
-// Functions for todos
-const addTodos = (value, id, todosBox) => {
-  if (todosBox.children.length === 0) {
-    todosBox.appendChild(createNewElement(value, id));
-  } else {
-    todosBox.insertBefore(createNewElement(value, id), todosBox.firstChild);
-  }
-};
-// --------------------------------------
-
-const deleteTodo = (activePage, todoId) => {
-  document
-    .querySelector(`[data-todos="${activePage}"] > [data-id="${todoId}"]`)
-    .remove();
-};
-
-// --------------------------------------
-
-const checkCompletedTodo = (todo) => {
-  completeTodoAnimation(todo);
-};
-
-// --------------------------------------
-
-const saveCompletedTodo = (todo) => {
-  if (localStorage.getItem("completedTodos")) {
-    const completedTodosFromLocal = JSON.parse(
-      localStorage.getItem("completedTodos")
-    );
-    const newCompletedTodoId = completedTodosFromLocal.length + 1;
-    const newCompletedTodoObject = {
-      id: newCompletedTodoId,
-      text: todo.querySelector("span").textContent,
-    };
-    const newCompletedTodoObjectArray = [
-      ...completedTodosFromLocal,
-      newCompletedTodoObject,
-    ];
-    localStorage.setItem(
-      "completedTodos",
-      JSON.stringify(newCompletedTodoObjectArray)
-    );
-  } else {
-    const completedTodoToSave = todo.querySelector("span").textContent;
-    const completedTodoObjectArray = [
-      {
-        id: 1,
-        text: completedTodoToSave,
-      },
-    ];
-    localStorage.setItem(
-      "completedTodos",
-      JSON.stringify(completedTodoObjectArray)
-    );
-  }
-};
-
-// --------------------------------------
-const getPageTodoId = (activePage) => {
-  const activePageTodosBox = document.querySelector(
-    `[data-todos="${activePage}"]`
-  );
-  return activePageTodosBox.childNodes.length;
-};
-// --------------------------------------
-const handleTodoEditStart = (todoElement) => {
-  const todoText = todoElement.querySelector("span");
-  const editButton = todoElement.querySelector(".edit-icon");
-  const submitChangeIconHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-    </svg>
-    `;
-
-  const newEditElement = document.createElement("input");
-  newEditElement.value = todoText.textContent;
-  editButton.classList.add("submit-edit-icon");
-  editButton.classList.remove("edit-icon");
-  todoText.replaceWith(newEditElement);
-  editButton.innerHTML = submitChangeIconHTML;
-};
-// --------------------------------------
-const handleTodoEditEnd = (todoElement) => {
-  const todoInput = todoElement.querySelector("input");
-  const submitEditButton = todoElement.querySelector(".submit-edit-icon");
-
-  const newSpanElement = document.createElement("span");
-  newSpanElement.textContent = todoInput.value;
-  const editButtonHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon">
-    <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
-  </svg>`;
-  submitEditButton.classList.remove("submit-edit-icon");
-  submitEditButton.classList.add("edit-icon");
-  submitEditButton.innerHTML = editButtonHTML;
-  todoInput.replaceWith(newSpanElement);
-};
-// --------------------------------------
-
-const extractTodos = (todosElement) => {
-  const extractedTodosArray = [];
-  todosElement.childNodes.forEach((childNode) => {
-    const spanOfChild = childNode.querySelector("span");
-    const todoValue = spanOfChild.textContent;
-    const todoId = childNode.dataset.id;
-    const newTodoObject = createNewTodoObject(todoValue, todoId);
-    extractedTodosArray.push(newTodoObject);
-  });
-
-  return extractedTodosArray;
-};
-// --------------------------------------
-const resetTodoIds = (todoBox) => {
-  let i = todoBox.childNodes.length - 1;
-  todoBox.childNodes.forEach((todo) => {
-    todo.dataset.id = i;
-    i--;
-  });
-};
-// --------------------------------------
-const createNewTodoObject = (text, id) => {
-  return {
-    id: id,
-    text: text,
-  };
-};
-// ---------------------------------------
-const createNewElement = (text, id) => {
-  const newElement = document.createElement("p");
-  const newTextElement = document.createElement("span");
-  newTextElement.textContent = text;
-  newElement.appendChild(newTextElement);
-  newElement.dataset.id = id;
-
-  const buttonIconsHtml = `<button class="edit-icon" title="Edit todo item">
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon">
-    <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
-  </svg>
-    </button>
-    <button class="delete-icon" title="Delete todo item">
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icon">
-    <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
-  </svg>
-    </button>
-  
-  `;
-  const todoCheckBoxHTML = `<div class="completed-check" data-checkid="${id}" title="Check completed todo"></div>`;
-  newElement.insertAdjacentHTML("beforeend", buttonIconsHtml);
-  newElement.insertAdjacentHTML("afterbegin", todoCheckBoxHTML);
-  return newElement;
-};
-// --------------------------------------
-// Functions for pages
-const createPagesArray = (allPages) => {
-  const pageObjectsArray = [];
-  allPages.forEach((page) => {
-    const pageTitle = page.querySelector("h2:first-child").textContent;
-    const todos = page.querySelector("div:last-child");
-    const extractedTodos = extractTodos(todos);
-    const newPageObject = {
-      pageId: page.dataset.todopage,
-      title: pageTitle,
-      todos: extractedTodos,
-    };
-    pageObjectsArray.push(newPageObject);
-  });
-  return pageObjectsArray;
-};
-// --------------------------------------
-const savePages = (pagesArray) => {
-  localStorage.removeItem("pages");
-  localStorage.setItem("pages", JSON.stringify(pagesArray));
-};
-// --------------------------------------
-const showActivePage = (pagesBox, activePage) => {
-  const pages = pagesBox.querySelectorAll(".todo-page");
-  pages.forEach((page) => {
-    if (page.dataset.todopage === activePage.toString()) {
-      page.classList.remove("hide");
-    } else {
-      page.classList.add("hide");
-    }
-  });
-};
-// --------------------------------------
-// --------------------------------------
-// Deletes activePage
-const deletePage = (activePage) => {
-  document.querySelector(`[data-todopage="${activePage}"]`).remove();
-};
-
-const resetPageIds = (pages) => {
-  let i = 1;
-  pages.forEach((page) => {
-    page.dataset.todopage = i;
-    page.querySelector("h2").dataset.pageid = i;
-    page.querySelector(".todo-page__todos").dataset.todos = i;
-    i++;
-  });
-};
 // Start of the app
 const start = (pagesBox) => {
   if (localStorage.getItem("pages")) {
@@ -396,11 +198,11 @@ const start = (pagesBox) => {
     createPageHTML(pagesArray, pagesBox);
     pageID = pagesArray.length;
     todoID = pagesArray[0].todos.length;
-    showActivePage(pagesBox, activePage);
+    pageFunction.showActivePage(pagesBox, activePage);
   } else {
     createPageHTML(null, pagesBox);
     todoID = 0;
-    showActivePage(pagesBox, activePage);
+    pageFunction.showActivePage(pagesBox, activePage);
   }
 };
 // --------------------------------------
@@ -429,7 +231,7 @@ const createPageHTML = (pagesArray, pagesBox, pageId = 1) => {
       `;
       pagesBox.insertAdjacentHTML("beforeend", newPage);
       page.todos.forEach(({ text, id }) => {
-        const newElement = createNewElement(text, id);
+        const newElement = todoFunction.createNewElement(text, id);
         const todoBox = document.querySelector(`[data-todos="${page.pageId}"]`);
         todoBox.appendChild(newElement);
       });
@@ -439,17 +241,10 @@ const createPageHTML = (pagesArray, pagesBox, pageId = 1) => {
 // --------------------------------------
 start(pagesBox);
 
-// Saving function
-const makeDataForSaving = () => {
-  const allPages = document.querySelectorAll(".todo-page");
-  const allPagesArray = createPagesArray(allPages);
-  return allPagesArray;
-};
-
 // ANIMATIONS
 input.addEventListener("focus", () => {
-  moveInputLabel(inputLabel);
+  animationFunction.moveInputLabel(inputLabel);
 });
 input.addEventListener("blur", () => {
-  moveInputLabel(inputLabel, false, input.value);
+  animationFunction.moveInputLabel(inputLabel, false, input.value);
 });
