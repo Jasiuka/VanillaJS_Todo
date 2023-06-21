@@ -11,6 +11,15 @@
 html {
   box-sizing: border-box;
   font-size: 62.5%; }
+  @media only screen and (max-width: 67.5rem) {
+    html {
+      font-size: 50%; } }
+  @media only screen and (max-width: 54rem) {
+    html {
+      font-size: 42%; } }
+  @media only screen and (max-width: 22rem) {
+    html {
+      font-size: 35%; } }
 
 body {
   font-weight: 300;
@@ -36,6 +45,21 @@ body {
   justify-content: center;
   align-items: center;
   width: 60vw; }
+  @media only screen and (max-width: 78rem) {
+    .pages {
+      width: 65vw; } }
+  @media only screen and (max-width: 67.5rem) {
+    .pages {
+      width: 70vw; } }
+  @media only screen and (max-width: 54rem) {
+    .pages {
+      width: 80vw; } }
+  @media only screen and (max-width: 35rem) {
+    .pages {
+      width: 90vw; } }
+  @media only screen and (max-width: 28rem) {
+    .pages {
+      width: 95vw; } }
   .pages__actions-box {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
@@ -55,6 +79,21 @@ body {
     padding: 1rem;
     width: 80%;
     outline: #702632 solid 1px; }
+    @media only screen and (max-width: 87.5rem) {
+      .pages__add-todo-input {
+        font-size: 2.2rem; } }
+    @media only screen and (max-width: 78rem) {
+      .pages__add-todo-input {
+        font-size: 2rem; } }
+    @media only screen and (max-width: 67.5rem) {
+      .pages__add-todo-input {
+        font-size: 1.8rem; } }
+    @media only screen and (max-width: 54rem) {
+      .pages__add-todo-input {
+        font-size: 1.5rem; } }
+    @media only screen and (max-width: 35rem) {
+      .pages__add-todo-input {
+        font-size: 1.2rem; } }
   .pages__moving-btn {
     width: 10rem;
     border: none;
@@ -65,6 +104,9 @@ body {
     border-radius: 4px; }
     .pages__moving-btn:hover {
       background-color: #8a676d0d; }
+    @media only screen and (max-width: 54rem) {
+      .pages__moving-btn {
+        width: 8rem; } }
   .pages .moving-btn-icon {
     stroke: #702632; }
   .pages__next-btn {
@@ -94,6 +136,14 @@ body {
     cursor: pointer; }
     .pages__add-todo-button:hover {
       background-color: #953444; }
+    @media only screen and (max-width: 54rem) {
+      .pages__add-todo-button {
+        font-size: 1.6rem; } }
+    @media only screen and (max-width: 35rem) {
+      .pages__add-todo-button {
+        font-size: 1.2rem;
+        padding: 0.8rem;
+        height: 3rem; } }
 
 .todo-page {
   flex: 1;
@@ -111,6 +161,12 @@ body {
     overflow-x: hidden;
     padding: 0 5rem;
     transition: all 0.5s; }
+    @media only screen and (max-width: 44rem) {
+      .todo-page__todos {
+        padding: 0 2rem; } }
+    @media only screen and (max-width: 28rem) {
+      .todo-page__todos {
+        padding: 0 1rem; } }
     .todo-page__todos p {
       font-size: 2.2rem;
       font-weight: 400;
@@ -121,9 +177,41 @@ body {
       .todo-page__todos p span {
         max-width: 60rem;
         transition: all 0.3s; }
+        @media only screen and (max-width: 87.5rem) {
+          .todo-page__todos p span {
+            max-width: 50rem; } }
+        @media only screen and (max-width: 78rem) {
+          .todo-page__todos p span {
+            font-size: 2rem; } }
+        @media only screen and (max-width: 54rem) {
+          .todo-page__todos p span {
+            max-width: 60rem; } }
+        @media only screen and (max-width: 44rem) {
+          .todo-page__todos p span {
+            font-size: 1.8rem; } }
+        @media only screen and (max-width: 35rem) {
+          .todo-page__todos p span {
+            max-width: 45rem; } }
+        @media only screen and (max-width: 28rem) {
+          .todo-page__todos p span {
+            font-size: 1.5rem;
+            max-width: 30rem; } }
       .todo-page__todos p input {
         font-size: 2.2rem;
         width: 60rem; }
+        @media only screen and (max-width: 78rem) {
+          .todo-page__todos p input {
+            font-size: 2rem; } }
+        @media only screen and (max-width: 67.5rem) {
+          .todo-page__todos p input {
+            width: 50rem;
+            font-size: 1.8rem; } }
+        @media only screen and (max-width: 54rem) {
+          .todo-page__todos p input {
+            width: 40rem; } }
+        @media only screen and (max-width: 44rem) {
+          .todo-page__todos p input {
+            font-size: 1.5rem; } }
       .todo-page__todos p button {
         background-color: transparent;
         cursor: pointer;
@@ -133,8 +221,14 @@ body {
           transform: translateY(-5px); }
       .todo-page__todos p .edit-icon {
         margin-left: 1.5rem; }
+        @media only screen and (max-width: 54rem) {
+          .todo-page__todos p .edit-icon {
+            margin-left: 0; } }
       .todo-page__todos p .submit-edit-icon {
         margin-left: 1.5rem; }
+        @media only screen and (max-width: 54rem) {
+          .todo-page__todos p .submit-edit-icon {
+            margin-left: 0; } }
 
 .todo-page__title {
   position: relative;
@@ -144,6 +238,12 @@ body {
   border-bottom: solid 5px #702632;
   flex: 1;
   z-index: 1; }
+  @media only screen and (max-width: 87.5rem) {
+    .todo-page__title {
+      font-size: 4rem; } }
+  @media only screen and (max-width: 78rem) {
+    .todo-page__title {
+      font-size: 3rem; } }
 
 .hide {
   display: none;
@@ -152,6 +252,9 @@ body {
 .icon {
   width: 2rem;
   stroke: #702632; }
+  @media only screen and (max-width: 44rem) {
+    .icon {
+      width: 1.5rem; } }
 
 .page-action-icon {
   width: 2.5rem; }
@@ -163,12 +266,32 @@ body {
   font-size: 2.4rem;
   transition: all 0.5s;
   color: #a0a0a0; }
+  @media only screen and (max-width: 78rem) {
+    .input-label {
+      font-size: 1.8rem;
+      top: 18%;
+      left: 5%; } }
+  @media only screen and (max-width: 54rem) {
+    .input-label {
+      font-size: 1.5rem; } }
+  @media only screen and (max-width: 35rem) {
+    .input-label {
+      font-size: 1.2rem;
+      top: 27%; } }
 
 .moveInputLabel {
   transform: translateY(-3.5rem);
   left: 3.5%;
   font-size: 1.8rem;
   color: #1d1d1d; }
+  @media only screen and (max-width: 78rem) {
+    .moveInputLabel {
+      font-size: 1.5rem;
+      left: 0%; } }
+  @media only screen and (max-width: 35rem) {
+    .moveInputLabel {
+      font-size: 1.2rem;
+      transform: translateY(-3rem); } }
 
 .pages__menu-container {
   position: absolute;
@@ -179,6 +302,18 @@ body {
   border-bottom: #f1f3f5 2px solid;
   border-radius: 4px;
   transition: all 0.3s; }
+  @media only screen and (max-width: 87.5rem) {
+    .pages__menu-container {
+      top: 6%; } }
+  @media only screen and (max-width: 78rem) {
+    .pages__menu-container {
+      top: 5%; } }
+  @media only screen and (max-width: 67.5rem) {
+    .pages__menu-container {
+      top: 4%; } }
+  @media only screen and (max-width: 54rem) {
+    .pages__menu-container {
+      top: 4%; } }
 
 .pages__menu-buttons {
   position: absolute;
@@ -195,6 +330,15 @@ body {
   padding: 0.5rem;
   z-index: 999;
   transition: all 0.3s; }
+  @media only screen and (max-width: 87.5rem) {
+    .pages__menu-buttons {
+      top: -90%; } }
+  @media only screen and (max-width: 78rem) {
+    .pages__menu-buttons {
+      gap: 0.7rem; } }
+  @media only screen and (max-width: 67.5rem) {
+    .pages__menu-buttons {
+      top: -75%; } }
 
 .pages__action-btn {
   position: relative;
@@ -211,8 +355,22 @@ body {
   border-radius: 4px;
   cursor: pointer;
   z-index: 999; }
+  @media only screen and (max-width: 87.5rem) {
+    .pages__action-btn span {
+      font-size: 1.1rem; } }
+  @media only screen and (max-width: 78rem) {
+    .pages__action-btn span {
+      font-size: 0.9rem; } }
   .pages__action-btn:hover {
     background-color: #953444; }
+  @media only screen and (max-width: 87.5rem) {
+    .pages__action-btn {
+      width: 7rem;
+      padding: 0.8rem; } }
+  @media only screen and (max-width: 78rem) {
+    .pages__action-btn {
+      width: 6rem;
+      padding: 0.6rem; } }
 
 .pages__menu-box {
   position: relative;
@@ -273,6 +431,15 @@ input[type="checkbox"]:checked + .menu-btn + .pages__menu-buttons {
   opacity: 1;
   top: -95%;
   right: 97%; }
+  @media only screen and (max-width: 87.5rem) {
+    input[type="checkbox"]:checked + .menu-btn + .pages__menu-buttons {
+      top: -75%; } }
+  @media only screen and (max-width: 67.5rem) {
+    input[type="checkbox"]:checked + .menu-btn + .pages__menu-buttons {
+      top: -70%; } }
+  @media only screen and (max-width: 54rem) {
+    input[type="checkbox"]:checked + .menu-btn + .pages__menu-buttons {
+      top: -80%; } }
 
 input[type="checkbox"]:not(:checked) + .menu-btn .menu-open {
   position: relative;
@@ -297,6 +464,10 @@ input[type="checkbox"]:not(:checked) + .menu-btn + .pages__menu-buttons {
   margin-right: 1rem;
   transition: all 0.3s;
   cursor: pointer; }
+  @media only screen and (max-width: 44rem) {
+    .completed-check {
+      width: 1.5rem;
+      height: 1.5rem; } }
 
 .completed-todo {
   text-decoration: line-through;

@@ -1,0 +1,60 @@
+// First breakpoint - firstBreakpoint -- 1400px | 87.5 rem
+// Second breakpoint - secondBreakpoint -- 1248px | 78 rem
+// Third breakpoint - thirdBreakpoint -- 1080px | 67.5 rem
+// Fourth breakpoint - fourthBreakpoint -- 864px | 54 rem
+// Fifth breakpoint - fifthBreakpoint -- 704px | 44 rem
+// Sixth breakpoint - sixthBreakpoint -- 560px | 35 rem
+// Seventh breakpoint - seventhBreakpoint -- 448px | 28 rem
+// Eighth breakpoint - eighthBreakpoint -- 352px | 22 rem
+
+@mixin query($breakpoint) {
+  @if $breakpoint == firstBreakpoint {
+    @media only screen and (max-width: 87.5rem) {
+      // 1400px
+      @content;
+    }
+  }
+  @if $breakpoint == secondBreakpoint {
+    @media only screen and (max-width: 78rem) {
+      // 1248px
+      @content;
+    }
+  }
+  @if $breakpoint == thirdBreakpoint {
+    @media only screen and (max-width: 67.5rem) {
+      // 1080px
+      @content;
+    }
+  }
+  @if $breakpoint == fourthBreakpoint {
+    @media only screen and (max-width: 54rem) {
+      // 864px
+      @content;
+    }
+  }
+
+  @if $breakpoint == fifthBreakpoint {
+    @media only screen and (max-width: 44rem) {
+      // 704px
+      @content;
+    }
+  }
+  @if $breakpoint == sixthBreakpoint {
+    @media only screen and (max-width: 35rem) {
+      // 560px
+      @content;
+    }
+  }
+  @if $breakpoint == seventhBreakpoint {
+    @media only screen and (max-width: 28rem) {
+      // 448px
+      @content;
+    }
+  }
+  @if $breakpoint == eighthBreakpoint {
+    @media only screen and (max-width: 22rem) {
+      // 352px
+      @content;
+    }
+  }
+}

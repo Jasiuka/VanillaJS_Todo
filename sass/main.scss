@@ -1,3 +1,4 @@
+@import "sass/queries";
 // Colors
 // 1 set:
 // #702632
@@ -39,6 +40,18 @@
 html {
   box-sizing: border-box;
   font-size: 62.5%;
+
+  @include query(thirdBreakpoint) {
+    font-size: 50%;
+  }
+
+  @include query(fourthBreakpoint) {
+    font-size: 42%;
+  }
+
+  @include query(eighthBreakpoint) {
+    font-size: 35%;
+  }
 }
 
 body {
@@ -68,6 +81,26 @@ body {
   align-items: center;
   width: 60vw;
 
+  @include query(secondBreakpoint) {
+    width: 65vw;
+  }
+
+  @include query(thirdBreakpoint) {
+    width: 70vw;
+  }
+
+  @include query(fourthBreakpoint) {
+    width: 80vw;
+  }
+
+  @include query(sixthBreakpoint) {
+    width: 90vw;
+  }
+
+  @include query(seventhBreakpoint) {
+    width: 95vw;
+  }
+
   &__actions-box {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
@@ -92,6 +125,26 @@ body {
     padding: 1rem;
     width: 80%;
     outline: #702632 solid 1px;
+
+    @include query(firstBreakpoint) {
+      font-size: 2.2rem;
+    }
+
+    @include query(secondBreakpoint) {
+      font-size: 2rem;
+    }
+
+    @include query(thirdBreakpoint) {
+      font-size: 1.8rem;
+    }
+
+    @include query(fourthBreakpoint) {
+      font-size: 1.5rem;
+    }
+
+    @include query(sixthBreakpoint) {
+      font-size: 1.2rem;
+    }
   }
 
   &__moving-btn {
@@ -106,6 +159,10 @@ body {
 
     &:hover {
       background-color: #8a676d0d;
+    }
+
+    @include query(fourthBreakpoint) {
+      width: 8rem;
     }
   }
 
@@ -152,6 +209,16 @@ body {
     &:hover {
       background-color: #953444;
     }
+
+    @include query(fourthBreakpoint) {
+      font-size: 1.6rem;
+    }
+
+    @include query(sixthBreakpoint) {
+      font-size: 1.2rem;
+      padding: 0.8rem;
+      height: 3rem;
+    }
   }
 }
 
@@ -171,8 +238,19 @@ body {
     overflow-y: scroll;
     overflow-x: hidden;
     padding: 0 5rem;
-    // align-items: center;
     transition: all 0.5s;
+
+    // @include query(fourthBreakpoint) {
+    //   width: 100%;
+    // }
+
+    @include query(fifthBreakpoint) {
+      padding: 0 2rem;
+    }
+
+    @include query(seventhBreakpoint) {
+      padding: 0 1rem;
+    }
 
     & p {
       font-size: 2.2rem;
@@ -185,11 +263,53 @@ body {
       & span {
         max-width: 60rem;
         transition: all 0.3s;
+
+        @include query(firstBreakpoint) {
+          max-width: 50rem;
+        }
+
+        @include query(secondBreakpoint) {
+          font-size: 2rem;
+        }
+
+        @include query(fourthBreakpoint) {
+          max-width: 60rem;
+        }
+
+        @include query(fifthBreakpoint) {
+          font-size: 1.8rem;
+        }
+
+        @include query(sixthBreakpoint) {
+          max-width: 45rem;
+        }
+
+        @include query(seventhBreakpoint) {
+          font-size: 1.5rem;
+          max-width: 30rem;
+        }
       }
 
       input {
         font-size: 2.2rem;
         width: 60rem;
+
+        @include query(secondBreakpoint) {
+          font-size: 2rem;
+        }
+
+        @include query(thirdBreakpoint) {
+          width: 50rem;
+          font-size: 1.8rem;
+        }
+
+        @include query(fourthBreakpoint) {
+          width: 40rem;
+        }
+
+        @include query(fifthBreakpoint) {
+          font-size: 1.5rem;
+        }
       }
 
       & button {
@@ -205,13 +325,18 @@ body {
 
       & .edit-icon {
         margin-left: 1.5rem;
+
+        @include query(fourthBreakpoint) {
+          margin-left: 0;
+        }
       }
 
       & .submit-edit-icon {
         margin-left: 1.5rem;
-      }
 
-      & .delete-icon {
+        @include query(fourthBreakpoint) {
+          margin-left: 0;
+        }
       }
     }
   }
@@ -225,6 +350,14 @@ body {
   border-bottom: solid 5px #702632;
   flex: 1;
   z-index: 1;
+
+  @include query(firstBreakpoint) {
+    font-size: 4rem;
+  }
+
+  @include query(secondBreakpoint) {
+    font-size: 3rem;
+  }
 }
 
 .hide {
@@ -235,6 +368,10 @@ body {
 .icon {
   width: 2rem;
   stroke: #702632;
+
+  @include query(fifthBreakpoint) {
+    width: 1.5rem;
+  }
 }
 
 .page-action-icon {
@@ -248,12 +385,37 @@ body {
   font-size: 2.4rem;
   transition: all 0.5s;
   color: rgb(160, 160, 160);
+
+  @include query(secondBreakpoint) {
+    font-size: 1.8rem;
+    top: 18%;
+    left: 5%;
+  }
+
+  @include query(fourthBreakpoint) {
+    font-size: 1.5rem;
+  }
+
+  @include query(sixthBreakpoint) {
+    font-size: 1.2rem;
+    top: 27%;
+  }
 }
 .moveInputLabel {
   transform: translateY(-3.5rem);
   left: 3.5%;
   font-size: 1.8rem;
   color: #1d1d1d;
+
+  @include query(secondBreakpoint) {
+    font-size: 1.5rem;
+    left: 0%;
+  }
+
+  @include query(sixthBreakpoint) {
+    font-size: 1.2rem;
+    transform: translateY(-3rem);
+  }
 }
 
 // Menu
@@ -270,6 +432,22 @@ body {
   // &:hover {
   //   transform: translateX(-3px);
   // }
+
+  @include query(firstBreakpoint) {
+    top: 6%;
+  }
+
+  @include query(secondBreakpoint) {
+    top: 5%;
+  }
+
+  @include query(thirdBreakpoint) {
+    top: 4%;
+  }
+
+  @include query(fourthBreakpoint) {
+    top: 4%;
+  }
 }
 
 .pages__menu-buttons {
@@ -287,6 +465,18 @@ body {
   padding: 0.5rem;
   z-index: 999;
   transition: all 0.3s;
+
+  @include query(firstBreakpoint) {
+    top: -90%;
+  }
+
+  @include query(secondBreakpoint) {
+    gap: 0.7rem;
+  }
+
+  @include query(thirdBreakpoint) {
+    top: -75%;
+  }
 }
 
 .pages__action-btn {
@@ -305,15 +495,29 @@ body {
   cursor: pointer;
   z-index: 999;
 
+  & span {
+    @include query(firstBreakpoint) {
+      font-size: 1.1rem;
+    }
+
+    @include query(secondBreakpoint) {
+      font-size: 0.9rem;
+    }
+  }
+
   &:hover {
     background-color: #953444;
   }
-}
 
-.pages__delete-btn {
-}
+  @include query(firstBreakpoint) {
+    width: 7rem;
+    padding: 0.8rem;
+  }
 
-.pages__new-page-btn {
+  @include query(secondBreakpoint) {
+    width: 6rem;
+    padding: 0.6rem;
+  }
 }
 
 .pages__menu-box {
@@ -388,6 +592,18 @@ input[type="checkbox"]:checked + .menu-btn + .pages__menu-buttons {
   opacity: 1;
   top: -95%;
   right: 97%;
+
+  @include query(firstBreakpoint) {
+    top: -75%;
+  }
+
+  @include query(thirdBreakpoint) {
+    top: -70%;
+  }
+
+  @include query(fourthBreakpoint) {
+    top: -80%;
+  }
 }
 
 // Close menu
@@ -417,6 +633,11 @@ input[type="checkbox"]:not(:checked) + .menu-btn + .pages__menu-buttons {
   margin-right: 1rem;
   transition: all 0.3s;
   cursor: pointer;
+
+  @include query(fifthBreakpoint) {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
 }
 
 .completed-todo {
