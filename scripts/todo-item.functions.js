@@ -1,10 +1,14 @@
 import { completeTodoAnimation } from "./animations.js";
 
 export const addTodos = (value, id, todosBox) => {
-  if (todosBox.children.length === 0) {
-    todosBox.appendChild(createNewElement(value, id));
+  if (!value || value === "") {
+    return;
   } else {
-    todosBox.insertBefore(createNewElement(value, id), todosBox.firstChild);
+    if (todosBox.children.length === 0) {
+      todosBox.appendChild(createNewElement(value, id));
+    } else {
+      todosBox.insertBefore(createNewElement(value, id), todosBox.firstChild);
+    }
   }
 };
 // --------------------------------------
