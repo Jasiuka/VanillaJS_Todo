@@ -9,7 +9,6 @@ import {
   extractTodos,
   resetTodoIds,
 } from "../scripts/todo-item.functions";
-import { mockedLocalStorage } from "../scripts/mockedLocalStorage";
 
 describe("Todo functions test", () => {
   describe("addTodos() function tests", () => {
