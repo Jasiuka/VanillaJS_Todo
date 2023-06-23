@@ -14,9 +14,17 @@ export const addTodos = (value, id, todosBox) => {
 // --------------------------------------
 
 export const deleteTodo = (activePage, todoId) => {
-  document
-    .querySelector(`[data-todos="${activePage}"] > [data-id="${todoId}"]`)
-    .remove();
+  const todoToDelete = document.querySelector(
+    `[data-todos="${activePage}"] > [data-id="${todoId}"]`
+  );
+  if (todoToDelete) {
+    todoToDelete.remove();
+  } else {
+    return;
+  }
+  // document
+  //   .querySelector(`[data-todos="${activePage}"] > [data-id="${todoId}"]`)
+  //   .remove();
 };
 
 // --------------------------------------
@@ -62,10 +70,14 @@ export const saveCompletedTodo = (todo) => {
 
 // --------------------------------------
 export const getPageTodoId = (activePage) => {
-  const activePageTodosBox = document.querySelector(
-    `[data-todos="${activePage}"]`
-  );
-  return activePageTodosBox.childNodes.length;
+  if (activePage) {
+    const activePageTodosBox = document.querySelector(
+      `[data-todos="${activePage}"]`
+    );
+    return activePageTodosBox.children.length;
+  } else {
+    return null;
+  }
 };
 // --------------------------------------
 export const handleTodoEditStart = (todoElement) => {
@@ -102,10 +114,10 @@ export const handleTodoEditEnd = (todoElement) => {
 
 export const extractTodos = (todosElement) => {
   const extractedTodosArray = [];
-  todosElement.childNodes.forEach((childNode) => {
-    const spanOfChild = childNode.querySelector("span");
+  Array.from(todosElement.children)?.forEach((childrenElement) => {
+    const spanOfChild = childrenElement.querySelector("span");
     const todoValue = spanOfChild.textContent;
-    const todoId = childNode.dataset.id;
+    const todoId = childrenElement.dataset.id;
     const newTodoObject = createNewTodoObject(todoValue, todoId);
     extractedTodosArray.push(newTodoObject);
   });
@@ -114,8 +126,8 @@ export const extractTodos = (todosElement) => {
 };
 // --------------------------------------
 export const resetTodoIds = (todoBox) => {
-  let i = todoBox.childNodes.length - 1;
-  todoBox.childNodes.forEach((todo) => {
+  let i = todoBox.children.length - 1;
+  Array.from(todoBox.children)?.forEach((todo) => {
     todo.dataset.id = i;
     i--;
   });
@@ -129,6 +141,9 @@ export const createNewTodoObject = (text, id) => {
 };
 // ---------------------------------------
 export const createNewElement = (text, id) => {
+  if (!text || !id) {
+    throw new Error("Error. No text or id was given. ");
+  }
   const newElement = document.createElement("p");
   const newTextElement = document.createElement("span");
   newTextElement.textContent = text;

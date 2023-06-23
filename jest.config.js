@@ -4,7 +4,7 @@
  */
 
 module.exports = {
-  testEnvironment: "jest-environment-jsdom",
+  // testEnvironment: "jest-environment-jsdom",
   // All imported modules in your tests should be mocked automatically
   // automock: false,
 
@@ -145,7 +145,7 @@ module.exports = {
   // snapshotSerializers: [],
 
   // The test environment that will be used for testing
-  testEnvironment: "jsdom",
+  testEnvironment: "jest-environment-jsdom",
 
   // Options that will be passed to the testEnvironment
   // testEnvironmentOptions: {},
