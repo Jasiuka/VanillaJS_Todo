@@ -2,11 +2,11 @@ import { extractTodos } from "./todo-item.functions.js";
 export const createPagesArray = (allPages) => {
   const pageObjectsArray = [];
   allPages?.forEach((page) => {
-    const pageTitle = page.querySelector("h2:first-child").textContent;
+    const pageTitle = page.querySelector("h2:first-child")?.textContent;
     const todos = page.querySelector("div:last-child");
     const extractedTodos = extractTodos(todos);
     const newPageObject = {
-      pageId: page.dataset.todopage,
+      pageId: page.dataset?.todopage,
       title: pageTitle,
       todos: extractedTodos,
     };
