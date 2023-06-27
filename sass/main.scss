@@ -550,7 +550,7 @@ body {
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.3s;
-  z-index: 999;
+  z-index: 10;
 
   &:hover {
     transform: translateX(-5px);
@@ -647,4 +647,44 @@ input[type="checkbox"]:not(:checked) + .menu-btn + .pages__menu-buttons {
 
 .completed-todo-checkbox {
   background-color: #702632;
+}
+
+// History popup
+
+.history-popup--outer {
+  transform: translate(-50%, -50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background-color: #70263286;
+  backdrop-filter: blur(6px);
+  width: 80rem;
+  // height: 20rem;
+  padding: 2rem;
+  min-height: 40rem;
+  max-height: 80rem;
+  z-index: 12;
+  transition: all 0.3s;
+}
+
+.history-popup--overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #21212167;
+  width: 100vw;
+  height: 100vh;
+  backdrop-filter: blur(6px);
+  z-index: 11;
+  transition: all 0.3s;
+}
+
+.history-popup--inner {
+  position: relative;
+}
+
+.hide-popup {
+  visibility: hidden;
+  pointer-events: none;
+  opacity: 0;
 }

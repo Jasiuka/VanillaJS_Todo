@@ -2,6 +2,7 @@ import * as animationFunction from "./animations.js";
 import * as todoFunction from "./todo-item.functions.js";
 import * as pageFunction from "./page.functions.js";
 import * as helperFunction from "./helper-and-saving.function.js";
+import * as historyPopup from "./history-popup.functions.script.js";
 
 // GLOBALS
 // const body = document.querySelector("body");
@@ -13,6 +14,10 @@ const newPageButton = document.querySelector(".pages__new-page-btn");
 const nextButton = document.querySelector(".pages__next-btn");
 const prevButton = document.querySelector(".pages__prev-btn");
 const deleteButton = document.querySelector(".pages__delete-btn");
+const historyOverlay = document.querySelector(".history-popup--overlay");
+const historyPopupContainer = document.querySelector(".history-popup--inner");
+const historyButton = document.querySelector(".history-btn");
+const historyCloseButton = document.querySelector(".history-popup__close-btn");
 let todoID = 0;
 let pageID = 1;
 let activePage = 1;
@@ -189,6 +194,26 @@ deleteButton.addEventListener("click", () => {
     alert("You can't delete last page!");
     menuCheckbox.checked = false;
   }
+});
+
+// Opens history popup
+historyButton.addEventListener("click", () => {
+  const todoItems = historyPopup.getHistoryTodosFromLocal();
+  const todoItemsBox = historyPopup.createHistoryPopupItems(todoItems);
+  historyPopupContainer.appendChild(todoItemsBox);
+  // console.log(historyPopupContainer.closest("history-popup--outer"));
+  historyOverlay.classList.remove("hide-popup");
+  historyPopupContainer.parentElement.classList.remove("hide-popup");
+});
+
+historyCloseButton.addEventListener("click", () => {
+  historyOverlay.classList.add("hide-popup");
+  historyPopupContainer.parentElement.classList.add("hide-popup");
+});
+
+historyOverlay.addEventListener("click", () => {
+  historyOverlay.classList.add("hide-popup");
+  historyPopupContainer.parentElement.classList.add("hide-popup");
 });
 
 // Start of the app
