@@ -19,6 +19,100 @@
     <div class="app">
       <h1>Todoing - todo list</h1>
       <main class="pages">
+        <!-- Menu -->
+        <nav class="menu-box--outer">
+          <div class="menu-box--inner">
+            <input id="menu-hidden-input" type="checkbox" />
+            <div class="menu-box--left menu-box--side">
+              <button class="menu-box__clear-btn menu-box__action-btn">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="page-action-icon"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
+                  />
+                </svg>
+                <span
+                  >Clear <br />
+                  all</span
+                >
+              </button>
+              <button class="menu-box__history-btn menu-box__action-btn">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="page-action-icon"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M10.125 2.25h-4.5c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125v-9M10.125 2.25h.375a9 9 0 019 9v.375M10.125 2.25A3.375 3.375 0 0113.5 5.625v1.5c0 .621.504 1.125 1.125 1.125h1.5a3.375 3.375 0 013.375 3.375M9 15l2.25 2.25L15 12"
+                  />
+                </svg>
+                <span
+                  >Completed <br />
+                  todos</span
+                >
+              </button>
+            </div>
+            <label for="menu-hidden-input" class="menu-button">MENU</label>
+            <div class="menu-box--right menu-box--side">
+              <button class="menu-box__delete-btn menu-box__action-btn">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="page-action-icon"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m6.75 12H9m1.5-12H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
+                  />
+                </svg>
+                <span
+                  >Delete <br />
+                  page</span
+                >
+              </button>
+              <button
+                class="menu-box__new-page-btn menu-box__action-btn"
+                title="Add new page"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="page-action-icon"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m3.75 9v6m3-3H9m1.5-12H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
+                  />
+                </svg>
+                <span
+                  >Add <br />
+                  new page</span
+                >
+              </button>
+            </div>
+          </div>
+        </nav>
         <!-- Actions -->
         <div class="pages__actions-box">
           <div class="pages__add-todo-box">
@@ -32,89 +126,6 @@
             <button class="pages__add-todo-button" title="Add new todo">
               Add
             </button>
-          </div>
-
-          <div class="pages__menu-container">
-            <div class="pages__menu-box">
-              <input type="checkbox" id="menu-btn-hidden" />
-              <label for="menu-btn-hidden" title="Menu button" class="menu-btn">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  class="menu-close menu-icon"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
-                  />
-                </svg>
-
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  class="menu-open menu-icon"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"
-                  />
-                </svg>
-              </label>
-
-              <div class="pages__menu-buttons">
-                <button class="pages__delete-btn pages__action-btn">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="1.5"
-                    stroke="currentColor"
-                    class="page-action-icon"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m6.75 12H9m1.5-12H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
-                    />
-                  </svg>
-                  <span
-                    >Delete <br />
-                    page</span
-                  >
-                </button>
-                <button
-                  class="pages__new-page-btn pages__action-btn"
-                  title="Add new page"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="1.5"
-                    stroke="currentColor"
-                    class="page-action-icon"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m3.75 9v6m3-3H9m1.5-12H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
-                    />
-                  </svg>
-                  <span
-                    >Add <br />
-                    new page</span
-                  >
-                </button>
-              </div>
-            </div>
           </div>
 
           <!--  -->
@@ -134,6 +145,7 @@
               />
             </svg>
           </button>
+          <!--  -->
           <button
             title="Previous page"
             class="pages__prev-btn pages__moving-btn"
@@ -157,12 +169,11 @@
       </main>
     </div>
     <div class="completed-check" data-checkid="1"></div>
-    <button class="history-btn">History</button>
+    <!-- History -->
     <div class="history-popup--overlay hide-popup"></div>
     <div class="history-popup--outer hide-popup">
-      <div class="history-popup--inner">
-        <button class="history-popup__close-btn">X</button>
-      </div>
+      <button class="history-popup__close-btn">X</button>
+      <div class="history-popup--inner"></div>
     </div>
     <script type="module" src="scripts/main.js"></script>
   </body>

@@ -37,6 +37,7 @@ body {
 .pages {
   position: relative;
   padding: 2rem;
+  padding-bottom: 10rem;
   border-radius: 4px;
   background-color: #f1f3f5;
   margin: 0 auto;
@@ -372,91 +373,6 @@ body {
       width: 6rem;
       padding: 0.6rem; } }
 
-.pages__menu-box {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center; }
-
-#menu-btn-hidden {
-  visibility: hidden;
-  opacity: 0;
-  pointer-events: none;
-  position: absolute; }
-
-.menu-btn {
-  position: relative;
-  display: flex;
-  background-color: #702632;
-  width: 5rem;
-  height: 3rem;
-  align-items: center;
-  justify-content: center;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: all 0.3s;
-  z-index: 10; }
-  .menu-btn:hover {
-    transform: translateX(-5px); }
-
-.menu-icon {
-  width: 5rem;
-  position: absolute;
-  padding: 0.6rem;
-  stroke: #f1f3f5;
-  transition: all 0.3s; }
-
-.menu-open {
-  opacity: 0;
-  position: relative; }
-
-.menu-close {
-  opacity: 0;
-  position: absolute; }
-
-input[type="checkbox"]:checked + .menu-btn .menu-close {
-  opacity: 1;
-  position: relative; }
-
-input[type="checkbox"]:checked + .menu-btn .menu-open {
-  transform: rotate(90deg);
-  opacity: 0;
-  position: absolute; }
-
-input[type="checkbox"]:checked + .menu-btn + .pages__menu-buttons {
-  visibility: visible;
-  pointer-events: all;
-  opacity: 1;
-  top: -95%;
-  right: 97%; }
-  @media only screen and (max-width: 87.5rem) {
-    input[type="checkbox"]:checked + .menu-btn + .pages__menu-buttons {
-      top: -75%; } }
-  @media only screen and (max-width: 67.5rem) {
-    input[type="checkbox"]:checked + .menu-btn + .pages__menu-buttons {
-      top: -70%; } }
-  @media only screen and (max-width: 54rem) {
-    input[type="checkbox"]:checked + .menu-btn + .pages__menu-buttons {
-      top: -80%; } }
-
-input[type="checkbox"]:not(:checked) + .menu-btn .menu-open {
-  position: relative;
-  opacity: 1; }
-
-input[type="checkbox"]:not(:checked) + .menu-btn .menu-close {
-  transform: rotate(-90deg);
-  position: absolute;
-  opacity: 0; }
-
-input[type="checkbox"]:not(:checked) + .menu-btn + .pages__menu-buttons {
-  visibility: hidden;
-  pointer-events: none;
-  opacity: 0;
-  top: -95%;
-  right: 0%; }
-
 .completed-check {
   width: 2rem;
   height: 2rem;
@@ -508,3 +424,84 @@ input[type="checkbox"]:not(:checked) + .menu-btn + .pages__menu-buttons {
   visibility: hidden;
   pointer-events: none;
   opacity: 0; }
+
+#menu-hidden-input {
+  display: none; }
+
+.menu-button {
+  background-color: #702632;
+  display: flex;
+  color: #ffffff;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  height: 8rem;
+  width: 6rem;
+  font-size: 1.6rem;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  transition: all 0.3s; }
+  .menu-button:hover {
+    transform: translateY(-5px);
+    background-color: #953444; }
+
+input[type="checkbox"]:checked + .menu-box--left {
+  width: 18rem; }
+
+input[type="checkbox"]:not(:checked) + .menu-box--left {
+  width: 0rem; }
+
+input[type="checkbox"]:checked
++ .menu-box--left
++ .menu-button
++ .menu-box--right {
+  width: 18rem; }
+
+input[type="checkbox"]:not(:checked)
++ .menu-box--left
++ .menu-button
++ .menu-box--right {
+  width: 0rem; }
+
+input[type="checkbox"]:checked + .menu-box--left + .menu-button {
+  transform: translateY(-5px);
+  background-color: #953444; }
+
+.menu-box--outer {
+  position: absolute;
+  bottom: 0; }
+
+.menu-box--inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+
+.menu-box--side {
+  display: flex;
+  justify-content: center;
+  background-color: #702632;
+  height: 8rem;
+  overflow: hidden;
+  transition: all 0.3s ease; }
+
+.menu-box--left {
+  border-top-left-radius: 4px; }
+
+.menu-box--right {
+  border-top-right-radius: 4px; }
+
+.menu-box__action-btn {
+  display: flex;
+  flex-direction: column;
+  width: 8rem;
+  padding: 0.5rem;
+  padding-top: 1rem;
+  gap: 0.5rem;
+  align-items: center;
+  border: none;
+  background-color: #702632;
+  cursor: pointer;
+  color: #ffffff; }
+  .menu-box__action-btn:hover {
+    background-color: #953444; }

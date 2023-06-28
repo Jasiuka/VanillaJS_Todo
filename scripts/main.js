@@ -6,17 +6,17 @@ import * as historyPopup from "./history-popup.functions.script.js";
 
 // GLOBALS
 // const body = document.querySelector("body");
-const menuCheckbox = document.getElementById("menu-btn-hidden");
+const menuCheckbox = document.getElementById("menu-hidden-input");
 const inputLabel = document.querySelector(".input-label");
 const pagesBox = document.querySelector(".pages");
 const input = document.querySelector(".pages__add-todo-input");
-const newPageButton = document.querySelector(".pages__new-page-btn");
+const newPageButton = document.querySelector(".menu-box__new-page-btn");
 const nextButton = document.querySelector(".pages__next-btn");
 const prevButton = document.querySelector(".pages__prev-btn");
-const deleteButton = document.querySelector(".pages__delete-btn");
+const deleteButton = document.querySelector(".menu-box__delete-btn");
 const historyOverlay = document.querySelector(".history-popup--overlay");
 const historyPopupContainer = document.querySelector(".history-popup--inner");
-const historyButton = document.querySelector(".history-btn");
+const historyButton = document.querySelector(".menu-box__history-btn");
 const historyCloseButton = document.querySelector(".history-popup__close-btn");
 let todoID = 0;
 let pageID = 1;
@@ -198,6 +198,7 @@ deleteButton.addEventListener("click", () => {
 
 // Opens history popup
 historyButton.addEventListener("click", () => {
+  historyPopupContainer.innerHTML = "";
   const todoItems = historyPopup.getHistoryTodosFromLocal();
   const todoItemsBox = historyPopup.createHistoryPopupItems(todoItems);
   historyPopupContainer.appendChild(todoItemsBox);
@@ -206,11 +207,13 @@ historyButton.addEventListener("click", () => {
   historyPopupContainer.parentElement.classList.remove("hide-popup");
 });
 
+// Close history when close button is clicked
 historyCloseButton.addEventListener("click", () => {
   historyOverlay.classList.add("hide-popup");
   historyPopupContainer.parentElement.classList.add("hide-popup");
 });
 
+// Close history when outside of history box is clicked
 historyOverlay.addEventListener("click", () => {
   historyOverlay.classList.add("hide-popup");
   historyPopupContainer.parentElement.classList.add("hide-popup");
