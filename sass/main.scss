@@ -89,6 +89,7 @@ body {
 
   @include query(thirdBreakpoint) {
     width: 90vw;
+    padding-bottom: 12rem;
   }
   @include query(fourthBreakpoint) {
     width: 95vw;
@@ -210,6 +211,10 @@ body {
   flex-direction: column;
   gap: 2rem;
 
+  @include query(thirdBreakpoint) {
+    margin-bottom: 4rem;
+  }
+
   &__todos {
     align-self: center;
     max-height: 50vh;
@@ -221,6 +226,10 @@ body {
     padding: 0 5rem;
     padding-bottom: 1rem;
     transition: all 0.5s;
+
+    @include query(thirdBreakpoint) {
+      max-height: 40vh;
+    }
 
     &::-webkit-scrollbar {
       width: 1rem;
@@ -422,7 +431,8 @@ body {
   left: 50%;
   background-color: #70263286;
   backdrop-filter: blur(6px);
-  width: 80rem;
+
+  max-width: 80rem;
   // height: 20rem;
   padding: 2rem;
   min-height: 40rem;
