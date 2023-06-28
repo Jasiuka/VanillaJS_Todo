@@ -239,7 +239,25 @@ body {
     overflow-y: scroll;
     overflow-x: hidden;
     padding: 0 5rem;
+    padding-bottom: 1rem;
     transition: all 0.5s;
+
+    &::-webkit-scrollbar {
+      width: 1rem;
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: #953444;
+      border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #bb8a92;
+      border-radius: 4px;
+      &:hover {
+        background-color: #e2cbcf;
+      }
+    }
 
     // @include query(fourthBreakpoint) {
     //   width: 100%;
@@ -560,6 +578,8 @@ body {
   max-height: 80rem;
   z-index: 12;
   transition: all 0.3s;
+  display: flex;
+  flex-direction: column;
 }
 
 .history-popup--overlay {
@@ -584,6 +604,57 @@ body {
   opacity: 0;
 }
 
+.history-popup__close-btn {
+  align-self: flex-end;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+  font-size: 2.4rem;
+  color: #f1f3f5;
+
+  &:hover {
+    color: #d1d2d3;
+  }
+}
+
+.history-popup__items-box {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  overflow-y: scroll;
+  max-height: 30rem;
+
+  p {
+    color: #f1f3f5;
+    font-size: 1.8rem;
+  }
+
+  &::-webkit-scrollbar {
+    width: 0.6rem;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #953444;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #bb8a92;
+    border-radius: 4px;
+    &:hover {
+      background-color: #e2cbcf;
+    }
+  }
+}
+
+.history-popup__title {
+  display: inline-block;
+  align-self: center;
+  font-size: 2.2rem;
+  color: #f1f3f5;
+  margin-bottom: 2rem;
+}
+
 // New menu
 #menu-hidden-input {
   // visibility: hidden;
@@ -603,6 +674,8 @@ body {
   justify-content: center;
   user-select: none;
   transition: all 0.3s;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
 
   &:hover {
     transform: translateY(-5px);

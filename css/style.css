@@ -161,7 +161,18 @@ body {
     overflow-y: scroll;
     overflow-x: hidden;
     padding: 0 5rem;
+    padding-bottom: 1rem;
     transition: all 0.5s; }
+    .todo-page__todos::-webkit-scrollbar {
+      width: 1rem; }
+    .todo-page__todos::-webkit-scrollbar-track {
+      background-color: #953444;
+      border-radius: 4px; }
+    .todo-page__todos::-webkit-scrollbar-thumb {
+      background-color: #bb8a92;
+      border-radius: 4px; }
+      .todo-page__todos::-webkit-scrollbar-thumb:hover {
+        background-color: #e2cbcf; }
     @media only screen and (max-width: 44rem) {
       .todo-page__todos {
         padding: 0 2rem; } }
@@ -404,7 +415,9 @@ body {
   min-height: 40rem;
   max-height: 80rem;
   z-index: 12;
-  transition: all 0.3s; }
+  transition: all 0.3s;
+  display: flex;
+  flex-direction: column; }
 
 .history-popup--overlay {
   position: absolute;
@@ -425,6 +438,43 @@ body {
   pointer-events: none;
   opacity: 0; }
 
+.history-popup__close-btn {
+  align-self: flex-end;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+  font-size: 2.4rem;
+  color: #f1f3f5; }
+  .history-popup__close-btn:hover {
+    color: #d1d2d3; }
+
+.history-popup__items-box {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  overflow-y: scroll;
+  max-height: 30rem; }
+  .history-popup__items-box p {
+    color: #f1f3f5;
+    font-size: 1.8rem; }
+  .history-popup__items-box::-webkit-scrollbar {
+    width: 0.6rem; }
+  .history-popup__items-box::-webkit-scrollbar-track {
+    background-color: #953444;
+    border-radius: 4px; }
+  .history-popup__items-box::-webkit-scrollbar-thumb {
+    background-color: #bb8a92;
+    border-radius: 4px; }
+    .history-popup__items-box::-webkit-scrollbar-thumb:hover {
+      background-color: #e2cbcf; }
+
+.history-popup__title {
+  display: inline-block;
+  align-self: center;
+  font-size: 2.2rem;
+  color: #f1f3f5;
+  margin-bottom: 2rem; }
+
 #menu-hidden-input {
   display: none; }
 
@@ -440,7 +490,9 @@ body {
   align-items: center;
   justify-content: center;
   user-select: none;
-  transition: all 0.3s; }
+  transition: all 0.3s;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px; }
   .menu-button:hover {
     transform: translateY(-5px);
     background-color: #953444; }

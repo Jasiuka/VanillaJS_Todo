@@ -4,6 +4,8 @@ export const addTodos = (value, id, todosBox) => {
   if (!value || value === "") {
     return;
   } else {
+    console.log("value", value);
+    console.log("id", id);
     if (todosBox.children.length === 0) {
       todosBox.appendChild(createNewElement(value, id));
     } else {
@@ -141,7 +143,7 @@ export const createNewTodoObject = (text, id) => {
 };
 // ---------------------------------------
 export const createNewElement = (text, id) => {
-  if (!text || !id) {
+  if (!text || (!id && id !== 0)) {
     throw new Error("Error. No text or id was given. ");
   }
   const newElement = document.createElement("p");

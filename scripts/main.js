@@ -18,6 +18,7 @@ const historyOverlay = document.querySelector(".history-popup--overlay");
 const historyPopupContainer = document.querySelector(".history-popup--inner");
 const historyButton = document.querySelector(".menu-box__history-btn");
 const historyCloseButton = document.querySelector(".history-popup__close-btn");
+const clearAllButton = document.querySelector(".menu-box__clear-btn");
 let todoID = 0;
 let pageID = 1;
 let activePage = 1;
@@ -217,6 +218,12 @@ historyCloseButton.addEventListener("click", () => {
 historyOverlay.addEventListener("click", () => {
   historyOverlay.classList.add("hide-popup");
   historyPopupContainer.parentElement.classList.add("hide-popup");
+});
+
+// Clears all data
+clearAllButton.addEventListener("click", () => {
+  localStorage.clear();
+  location.reload();
 });
 
 // Start of the app
