@@ -6,7 +6,7 @@ export const getHistoryTodosFromLocal = () => {
 export const createHistoryPopupItems = (completedTodosArray) => {
   const historyPopupItemsBox = document.createElement("div");
   historyPopupItemsBox.classList.add("history-popup__items-box");
-  completedTodosArray.forEach((completedTodo) => {
+  completedTodosArray?.forEach((completedTodo) => {
     const newItem = document.createElement("p");
     newItem.textContent = completedTodo.text;
     historyPopupItemsBox.appendChild(newItem);
