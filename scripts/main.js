@@ -121,24 +121,12 @@ pagesBox.addEventListener("click", (e) => {
 // Key events
 addEventListener("keydown", (e) => {
   const key = e.key;
-  if (key === "Enter" && input.value.trim() !== "") {
+  if (
+    (key === "Enter" && input.value.trim() !== "") ||
+    (key.keyCode === 13 && input.value.trim() !== "")
+  ) {
     document.querySelector(".pages__add-todo-button").click();
     animationFunction.moveInputLabel(inputLabel);
-
-    // if (!todoInEdit) {
-    //   const todoBox = document.querySelector(`[data-todos="${activePage}"]`);
-    //   const value = input.value.trim();
-
-    //   helperFunction.todoAddEventHandlerFunction(
-    //     value,
-    //     todoBox,
-    //     todoID,
-    //     input,
-    //     inputLabel
-    //   );
-    // } else {
-    //   alert("Finish editing your todo!");
-    // }
   }
 });
 // Button events
