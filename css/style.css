@@ -218,6 +218,7 @@ body {
     .pages {
       width: 95vw; } }
   .pages__actions-box {
+    margin-top: 1.5rem;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
     width: 85%; }
@@ -306,7 +307,7 @@ body {
       margin-bottom: 4rem; } }
   .todo-page__todos {
     align-self: center;
-    max-height: 47vh;
+    max-height: 45vh;
     display: flex;
     flex-direction: column;
     gap: 1.5rem;

@@ -2,31 +2,6 @@
 @import "sass/menu";
 @import "sass/base";
 @import "sass/queries";
-// Colors
-// 1 set:
-// #702632
-// #912F40
-// #FFFFFA
-// #40434E
-// #080705
-// 2 set:
-// #0A0908
-// #49111C
-// #F2F4F3
-// #A9927D
-// #5E503F
-// 3 set:
-// #5B2333
-// #F7F4F3
-// #564D4A
-// #F24333
-// #BA1B1D
-// 4 set:
-// #363636
-// #242F40
-// #CCA43B
-// #E5E5E5
-// #FFFFFF
 
 .pages {
   position: relative;
@@ -57,9 +32,9 @@
   }
 
   &__actions-box {
+    margin-top: 1.5rem;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-    // grid-template-rows: 1fr;
     width: 85%;
 
     @include query(thirdBreakpoint) {
@@ -180,7 +155,7 @@
 
   &__todos {
     align-self: center;
-    max-height: 47vh;
+    max-height: 45vh;
     display: flex;
     flex-direction: column;
     gap: 1.5rem;

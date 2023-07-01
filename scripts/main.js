@@ -120,13 +120,7 @@ pagesBox.addEventListener("click", (e) => {
 });
 // Key events
 addEventListener("keydown", (e) => {
-  const key = e.key;
-  console.log(key);
-  if (
-    (key === "Enter" && input.value.trim() !== "") ||
-    (key.keyCode === 13 && input.value.trim() !== "")
-  ) {
-    e.preventDefault();
+  if (key === "Enter" && input.value.trim() !== "") {
     document.querySelector(".pages__add-todo-button").click();
     animationFunction.moveInputLabel(inputLabel);
   }
