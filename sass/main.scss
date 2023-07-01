@@ -189,7 +189,7 @@
     transition: all 0.5s;
 
     @include query(thirdBreakpoint) {
-      max-height: 40vh;
+      max-height: 38vh;
     }
 
     &::-webkit-scrollbar {
@@ -301,7 +301,7 @@
 }
 .moveInputLabel {
   transform: translateY(-3.5rem);
-  left: 0%;
+  left: 2%;
   font-size: 1.8rem;
   color: #1d1d1d;
 

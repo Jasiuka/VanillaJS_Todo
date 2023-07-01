@@ -1,5 +1,5 @@
+@import "sass/queries";
 #menu-hidden-input {
-  // visibility: hidden;
   display: none;
 }
 
@@ -52,50 +52,52 @@ input[type="checkbox"]:checked + .menu-box--left + .menu-button {
   background-color: #953444;
 }
 
-.menu-box--outer {
-  position: absolute;
-  bottom: 0;
-}
+.menu-box {
+  &--outer {
+    position: absolute;
+    bottom: 0;
+  }
 
-.menu-box--inner {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+  &--inner {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-.menu-box--side {
-  display: flex;
-  // gap: 0.5rem;
-  justify-content: center;
-  background-color: #702632;
-  height: 8rem;
-  overflow: hidden;
-  transition: all 0.3s ease;
-}
+  &--side {
+    display: flex;
+    // gap: 0.5rem;
+    justify-content: center;
+    background-color: #702632;
+    height: 8rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
 
-.menu-box--left {
-  border-top-left-radius: 4px;
-}
+  &--left {
+    border-top-left-radius: 4px;
+  }
 
-.menu-box--right {
-  border-top-right-radius: 4px;
-}
+  &--right {
+    border-top-right-radius: 4px;
+  }
 
-.menu-box__action-btn {
-  display: flex;
-  flex-direction: column;
-  width: 8rem;
-  padding: 0.5rem;
-  padding-top: 1rem;
-  gap: 0.5rem;
-  align-items: center;
-  border: none;
-  background-color: #702632;
-  cursor: pointer;
-  color: #ffffff;
+  &__action-btn {
+    display: flex;
+    flex-direction: column;
+    width: 8rem;
+    padding: 0.5rem;
+    padding-top: 1rem;
+    gap: 0.5rem;
+    align-items: center;
+    border: none;
+    background-color: #702632;
+    cursor: pointer;
+    color: #ffffff;
 
-  &:hover {
-    background-color: #953444;
+    &:hover {
+      background-color: #953444;
+    }
   }
 }

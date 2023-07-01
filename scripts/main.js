@@ -37,16 +37,13 @@ pagesBox.addEventListener("click", (e) => {
       const todoBox = document.querySelector(`[data-todos="${activePage}"]`);
       const value = input.value.trim();
 
-      if (value.length <= 85) {
-        // Add todo element to todos box
-        todoFunction.addTodos(value, todoID, todoBox);
-        helperFunction.savePages(helperFunction.makeDataForSaving());
-        todoID++;
-        input.value = "";
-        animationFunction.moveInputLabel(inputLabel, false);
-      } else {
-        alert("Input value length should be <=85 characters. ");
-      }
+      helperFunction.todoAddEventHandlerFunction(
+        value,
+        todoBox,
+        todoID,
+        input,
+        inputLabel
+      );
     } else {
       alert("Finish editing your todo!");
     }
@@ -59,18 +56,12 @@ pagesBox.addEventListener("click", (e) => {
       if (!todoInEdit) {
         const newTitleValue = target.textContent.trim();
         if (newTitleValue.length <= 50 && newTitleValue.length !== 0) {
-          // const allPagesArray = createPagesArray(
-          //   document.querySelectorAll(".todo-page")
-          // );
-          // savePages(allPagesArray);
           helperFunction.savePages(helperFunction.makeDataForSaving());
         } else {
-          // if (!alertShown)
           alert(
             "Title name not saved. It should be more than 0 or less equal 50 characters length."
           );
           location.reload();
-          // alertShown = true;
         }
       } else {
         alert("Finish editing your todo!");
@@ -127,7 +118,30 @@ pagesBox.addEventListener("click", (e) => {
     }, 500);
   }
 });
+// Key events
+addEventListener("keydown", (e) => {
+  const key = e.key;
+  if (key === "Enter" && input.value.trim() !== "") {
+    document.querySelector(".pages__add-todo-button").click();
+    animationFunction.moveInputLabel(inputLabel);
 
+    // if (!todoInEdit) {
+    //   const todoBox = document.querySelector(`[data-todos="${activePage}"]`);
+    //   const value = input.value.trim();
+
+    //   helperFunction.todoAddEventHandlerFunction(
+    //     value,
+    //     todoBox,
+    //     todoID,
+    //     input,
+    //     inputLabel
+    //   );
+    // } else {
+    //   alert("Finish editing your todo!");
+    // }
+  }
+});
+// Button events
 // Adds new page, activePage becomes new created page
 newPageButton.addEventListener("click", () => {
   if (!todoInEdit) {
