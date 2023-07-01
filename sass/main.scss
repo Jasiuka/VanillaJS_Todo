@@ -40,6 +40,10 @@
     @include query(thirdBreakpoint) {
       width: 95%;
     }
+
+    @include query(fourthBreakpoint) {
+      margin-top: 0.5rem;
+    }
   }
 
   &__add-todo-box {

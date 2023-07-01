@@ -225,6 +225,9 @@ body {
     @media only screen and (max-width: 46.25rem) {
       .pages__actions-box {
         width: 95%; } }
+    @media only screen and (max-width: 34.5rem) {
+      .pages__actions-box {
+        margin-top: 0.5rem; } }
   .pages__add-todo-box {
     grid-column: 2 / 6;
     display: flex;
