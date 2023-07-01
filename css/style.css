@@ -290,7 +290,8 @@ body {
     @media only screen and (max-width: 29.5rem) {
       .pages__add-todo-button {
         width: 100%;
-        text-align: center; } }
+        display: flex;
+        justify-content: center; } }
     .pages__add-todo-button:hover {
       background-color: #953444; }
 
