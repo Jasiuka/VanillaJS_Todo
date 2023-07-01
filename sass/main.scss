@@ -209,6 +209,7 @@
       & span {
         max-width: 60rem;
         transition: all 0.3s;
+        word-wrap: break-word;
       }
 
       input {

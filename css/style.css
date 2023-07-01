@@ -344,7 +344,8 @@ body {
           font-size: 1.8rem; } }
       .todo-page__todos p span {
         max-width: 60rem;
-        transition: all 0.3s; }
+        transition: all 0.3s;
+        word-wrap: break-word; }
       .todo-page__todos p input {
         font-size: 2.2rem;
         width: 80%; }
