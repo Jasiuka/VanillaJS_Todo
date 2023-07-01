@@ -4,12 +4,20 @@ export const addTodos = (value, id, todosBox) => {
   if (!value || value === "") {
     return;
   } else {
-    console.log("value", value);
-    console.log("id", id);
     if (todosBox.children.length === 0) {
       todosBox.appendChild(createNewElement(value, id));
     } else {
-      todosBox.insertBefore(createNewElement(value, id), todosBox.firstChild);
+      // Check for duplicates, if it already exist, do not add
+      if (
+        Array.from(todosBox.children).some((children) => {
+          const childrenTextValue = children.querySelector("span").textContent;
+          return childrenTextValue === value;
+        })
+      ) {
+        alert("This item already exist in page!");
+      } else {
+        todosBox.insertBefore(createNewElement(value, id), todosBox.firstChild);
+      }
     }
   }
 };
@@ -24,9 +32,6 @@ export const deleteTodo = (activePage, todoId) => {
   } else {
     return;
   }
-  // document
-  //   .querySelector(`[data-todos="${activePage}"] > [data-id="${todoId}"]`)
-  //   .remove();
 };
 
 // --------------------------------------

@@ -6,10 +6,19 @@ export const getHistoryTodosFromLocal = () => {
 export const createHistoryPopupItems = (completedTodosArray) => {
   const historyPopupItemsBox = document.createElement("div");
   historyPopupItemsBox.classList.add("history-popup__items-box");
-  completedTodosArray?.forEach((completedTodo) => {
-    const newItem = document.createElement("p");
-    newItem.textContent = completedTodo.text;
-    historyPopupItemsBox.appendChild(newItem);
-  });
+  completedTodosArray
+    ? completedTodosArray?.forEach((completedTodo) => {
+        const newItem = document.createElement("p");
+        newItem.textContent = completedTodo.text;
+        historyPopupItemsBox.appendChild(newItem);
+      })
+    : historyPopupItemsBox.appendChild(createMessageItem());
   return historyPopupItemsBox;
+};
+
+// Create messageItem if no completedTodos exist
+export const createMessageItem = () => {
+  const newMessageItem = document.createElement("p");
+  newMessageItem.textContent = "No completed todos yet!";
+  return newMessageItem;
 };

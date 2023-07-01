@@ -4,10 +4,6 @@
 // Fourth breakpoint - fourthBreakpoint -- 552px | 34.5 rem
 // Fifth breakpoint - fifthBreakpoint -- 472px | 29.5 rem
 
-// Sixth breakpoint - sixthBreakpoint -- 560px | 35 rem
-// Seventh breakpoint - seventhBreakpoint -- 448px | 28 rem
-// Eighth breakpoint - eighthBreakpoint -- 352px | 22 rem
-
 @mixin query($breakpoint) {
   @if $breakpoint == firstBreakpoint {
     @media only screen and (max-width: 72.25rem) {
@@ -37,24 +33,6 @@
   @if $breakpoint == fifthBreakpoint {
     @media only screen and (max-width: 29.5rem) {
       // 472px
-      @content;
-    }
-  }
-  @if $breakpoint == sixthBreakpoint {
-    @media only screen and (max-width: 35rem) {
-      // 560px
-      @content;
-    }
-  }
-  @if $breakpoint == seventhBreakpoint {
-    @media only screen and (max-width: 28rem) {
-      // 448px
-      @content;
-    }
-  }
-  @if $breakpoint == eighthBreakpoint {
-    @media only screen and (max-width: 22rem) {
-      // 352px
       @content;
     }
   }

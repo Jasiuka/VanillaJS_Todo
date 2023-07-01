@@ -1,0 +1,42 @@
+@import "sass/queries";
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+*:focus {
+  outline: 2px solid #702632;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+
+  // @include query(firstBreakpoint) {
+  //   font-size: 55%;
+  // }
+  @include query(secondBreakpoint) {
+    font-size: 58%;
+  }
+  @include query(thirdBreakpoint) {
+    font-size: 54%;
+  }
+}
+
+body {
+  font-weight: 300;
+  line-height: 1.6;
+  font-family: "Ubuntu", "Sans-serif";
+  background-color: #702632;
+}
+
+.app h1 {
+  background-color: #702632;
+  color: #f1f3f5;
+  text-align: center;
+  padding: 1rem 0;
+  font-size: 3rem;
+}

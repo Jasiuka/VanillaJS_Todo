@@ -35,7 +35,7 @@ pagesBox.addEventListener("click", (e) => {
   ) {
     if (!todoInEdit) {
       const todoBox = document.querySelector(`[data-todos="${activePage}"]`);
-      const value = input.value;
+      const value = input.value.trim();
 
       if (value.length <= 85) {
         // Add todo element to todos box
