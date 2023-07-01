@@ -87,6 +87,7 @@
   height: 8rem;
   width: 6rem;
   font-size: 1.6rem;
+  font-weight: 500;
   align-items: center;
   justify-content: center;
   user-select: none;
@@ -288,7 +289,8 @@ body {
     cursor: pointer; }
     @media only screen and (max-width: 29.5rem) {
       .pages__add-todo-button {
-        width: 100%; } }
+        width: 100%;
+        text-align: center; } }
     .pages__add-todo-button:hover {
       background-color: #953444; }
 
