@@ -347,7 +347,7 @@ body {
         transition: all 0.3s; }
       .todo-page__todos p input {
         font-size: 2.2rem;
-        width: 60rem; }
+        width: 80%; }
       .todo-page__todos p button {
         background-color: transparent;
         cursor: pointer;
