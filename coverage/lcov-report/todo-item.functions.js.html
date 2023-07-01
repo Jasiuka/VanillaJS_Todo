@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">98.7% </span>
+                <span class="strong">97.53% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>76/77</span>
+                <span class='fraction'>79/81</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">89.47% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>16/16</span>
+                <span class='fraction'>17/19</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.3% </span>
+                <span class="strong">92.85% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>12/13</span>
+                <span class='fraction'>13/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">98.7% </span>
+                <span class="strong">97.53% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>76/77</span>
+                <span class='fraction'>79/81</span>
             </div>
         
             
@@ -233,7 +233,14 @@
 <a name='L168'></a><a href='#L168'>168</a>
 <a name='L169'></a><a href='#L169'>169</a>
 <a name='L170'></a><a href='#L170'>170</a>
-<a name='L171'></a><a href='#L171'>171</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L171'></a><a href='#L171'>171</a>
+<a name='L172'></a><a href='#L172'>172</a>
+<a name='L173'></a><a href='#L173'>173</a>
+<a name='L174'></a><a href='#L174'>174</a>
+<a name='L175'></a><a href='#L175'>175</a>
+<a name='L176'></a><a href='#L176'>176</a>
+<a name='L177'></a><a href='#L177'>177</a>
+<a name='L178'></a><a href='#L178'>178</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">5x</span>
@@ -242,7 +249,17 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -256,9 +273,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -412,7 +426,17 @@ export const addTodos = (value, id, todosBox) =&gt; {
     if (todosBox.children.length === 0) {
       todosBox.appendChild(createNewElement(value, id));
     } else {
-      todosBox.insertBefore(createNewElement(value, id), todosBox.firstChild);
+      // Check for duplicates, if it already exist, do not add
+      <span class="missing-if-branch" title="if path not taken" >I</span>if (
+        Array.from(todosBox.children).some((children) =&gt; {
+          const childrenTextValue = children.querySelector("span").textContent;
+          return childrenTextValue === value;
+        })
+      ) {
+<span class="cstat-no" title="statement not covered" >        alert("This item already exist in page!");</span>
+      } else {
+        todosBox.insertBefore(createNewElement(value, id), todosBox.firstChild);
+      }
     }
   }
 };
@@ -427,9 +451,6 @@ export const deleteTodo = (activePage, todoId) =&gt; {
   } else {
     return;
   }
-  // document
-  //   .querySelector(`[data-todos="${activePage}"] &gt; [data-id="${todoId}"]`)
-  //   .remove();
 };
 &nbsp;
 // --------------------------------------
@@ -546,7 +567,7 @@ export const createNewTodoObject = (text, id) =&gt; {
 };
 // ---------------------------------------
 export const createNewElement = (text, id) =&gt; {
-  if (!text || !id) {
+  if (!text || (!id &amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >id !== 0)</span>) {
     throw new Error("Error. No text or id was given. ");
   }
   const newElement = document.createElement("p");
@@ -580,7 +601,7 @@ export const createNewElement = (text, id) =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-06-24T18:38:29.781Z
+                at 2023-07-01T12:00:04.305Z
             </div>
         <script src="prettify.js"></script>
         <script>

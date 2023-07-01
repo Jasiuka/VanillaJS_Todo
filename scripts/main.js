@@ -2,7 +2,7 @@ import * as animationFunction from "./animations.js";
 import * as todoFunction from "./todo-item.functions.js";
 import * as pageFunction from "./page.functions.js";
 import * as helperFunction from "./helper-and-saving.function.js";
-import * as historyPopup from "./history-popup.functions.script.js";
+import * as historyPopup from "./history-popup.functions.js";
 
 // GLOBALS
 // const body = document.querySelector("body");
