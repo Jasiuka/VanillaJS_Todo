@@ -1,6 +1,10 @@
 export const getHistoryTodosFromLocal = () => {
   const historyTodos = JSON.parse(localStorage.getItem("completedTodos"));
-  return historyTodos;
+  if (historyTodos) {
+    return historyTodos;
+  } else {
+    return [];
+  }
 };
 
 export const createHistoryPopupItems = (completedTodosArray) => {
