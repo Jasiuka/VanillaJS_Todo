@@ -130,13 +130,17 @@ addEventListener("keydown", (e) => {
 // Adds new page, activePage becomes new created page
 newPageButton.addEventListener("click", () => {
   if (!todoInEdit) {
-    pageID++;
-    pagesCount++;
-    todoID = 0;
-    activePage = pagesCount;
-    createPageHTML(null, pagesBox, pageID);
-    pageFunction.showActivePage(pagesBox, activePage);
-    menuCheckbox.checked = false;
+    if (pagesCount < 7) {
+      pageID++;
+      pagesCount++;
+      todoID = 0;
+      activePage = pagesCount;
+      createPageHTML(null, pagesBox, pageID);
+      pageFunction.showActivePage(pagesBox, activePage);
+      menuCheckbox.checked = false;
+    } else {
+      alert("Max page limit is reached! (7)");
+    }
   } else {
     alert("Finish editing your todo!");
   }

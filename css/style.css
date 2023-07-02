@@ -13,7 +13,8 @@
   z-index: 12;
   transition: all 0.3s;
   display: flex;
-  flex-direction: column; }
+  flex-direction: column;
+  border-radius: 4px; }
   @media only screen and (max-width: 34.5rem) {
     .history-popup--outer {
       min-width: 30rem;
