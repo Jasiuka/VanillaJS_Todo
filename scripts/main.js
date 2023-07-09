@@ -44,6 +44,7 @@ pagesBox.addEventListener("click", (e) => {
         input,
         inputLabel
       );
+      todoID++;
     } else {
       alert("Finish editing your todo!");
     }
@@ -73,6 +74,7 @@ pagesBox.addEventListener("click", (e) => {
   if (target.closest(".delete-icon")) {
     if (!todoInEdit) {
       // Delete
+      console.log(target.closest("p"));
       animationFunction.deleteTodoAnimation(target.closest("p"));
       setTimeout(function () {
         todoFunction.deleteTodo(activePage, target.closest("p").dataset.id);
@@ -83,6 +85,7 @@ pagesBox.addEventListener("click", (e) => {
         todoFunction.resetTodoIds(activeTodoBox);
         // Save changes
         helperFunction.savePages(helperFunction.makeDataForSaving());
+        todoID = activeTodoBox.children.length;
       }, 500);
     } else {
       alert("Finish editing your todo!");

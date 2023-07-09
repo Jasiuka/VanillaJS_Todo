@@ -81,6 +81,7 @@ export const getPageTodoId = (activePage) => {
     const activePageTodosBox = document.querySelector(
       `[data-todos="${activePage}"]`
     );
+    console.log("new todo id:", activePageTodosBox.children.length);
     return activePageTodosBox.children.length;
   } else {
     return null;

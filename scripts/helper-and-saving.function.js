@@ -25,7 +25,6 @@ export const todoAddEventHandlerFunction = (
     // Add todo element to todos box
     todoFunction.addTodos(value, todoID, todoBox);
     savePages(makeDataForSaving());
-    todoID++;
     inputElement.value = "";
     animationFunction.moveInputLabel(inputLabelElement, false);
   } else {
